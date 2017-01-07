@@ -1,5 +1,5 @@
-<div class="container-fluid">
-  <nav class="navbar fixed-top navbar-toggleable-md navbar-inverse bg-primary"
+<div class="container">
+  <nav class="navbar navbar-toggleable-md navbar-inverse bg-primary"
        style="opacity: 0.95">
     <button class="navbar-toggler navbar-toggler-right" type="button"
             data-toggle="collapse" data-target="#navbarNav"
@@ -22,15 +22,6 @@
     </a>
     <div class="collapse navbar-collapse" id="navbarNav"
          style="justify-content: flex-end">
-      <form class="form-inline" style="display: flex; align-self: flex-end">
-        <div class="form-group has-success">
-          <label class="form-control-label" for="password"
-                 style="margin-right: 10px; color: #FFF">Password</label>
-          <input class="form-control form-control-success" type="password"
-                 id="password" value="my$3CrtP455w0RD">
-        </div>
-      </form>
-      <span style="width: 10px"></span>
       <ul class="navbar-nav">
         <li class="nav-item dropdown active">
           <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink"
@@ -51,21 +42,46 @@
   </nav>
 
   <!-- TODO: Show currently routed view here. -->
-  <div class="container-fluid" style="margin-top: 70px">
-    <h3>New Text Entry</h3>
-    <form style="margin-top: 20px">
-      <div class="form-group">
-        <input type="text" class="form-control" id="title" placeholder="Title">
-      </div>
-      <div class="form-group">
-        <textarea type="text" class="form-control" id="message"
-                  placeholder="How did your day go?"
-                  style="height: 240px"></textarea>
-      </div>
-      <div class="float-right">
-        <button type="submit" class="btn btn-primary">Publish</button>
-        <button type="submit" class="btn btn-danger">Abort</button>
-      </div>
-    </form>
+  <div class="container-fluid"
+       style="margin-top: 20px; margin-left: 15%; margin-right: 15%">
+
+    <div id="loginView">
+      <h3 style="margin-bottom: 20px">Authentication</h3>
+      <form class="form">
+        <div class="form-group">
+          <input class="form-control" type="text" id="username"
+                 placeholder="Username">
+        </div>
+        <div class="form-group">
+          <input class="form-control form-control" type="password"
+                 id="password" placeholder="Password">
+        </div>
+        <div class="float-right">
+          <button type="submit" class="btn btn-primary">Log In</button>
+          <button type="submit" class="btn btn-danger">Abort</button>
+        </div>
+      </form>
+    </div>
+
+    <div style="height: 100px"></div>
+
+    <div id="writeTextView">
+      <h3 style="margin-bottom: 20px">New Text Entry</h3>
+      <form>
+        <div class="form-group">
+          <input type="text" class="form-control" id="title" placeholder="Title">
+        </div>
+        <div class="form-group">
+          <textarea type="text" class="form-control" id="message"
+                    placeholder="How did your day go?"
+                    style="height: 240px"></textarea>
+        </div>
+        <div class="float-right">
+          <button type="submit" class="btn btn-primary">Publish</button>
+          <button type="submit" class="btn btn-danger">Abort</button>
+        </div>
+      </form>
+    </div>
+
   </div>
 </div>
