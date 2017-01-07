@@ -24,7 +24,7 @@ SECRET_KEY = 'hi-@absr!7tn73b1nr%6v5n(d2_f=o7%ry-l+lh43p$dturspw'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # 3rd party.
     'rest_framework',
+    'sslserver',
 
     # Project.
     'idaho.entries',
