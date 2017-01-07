@@ -1,3 +1,64 @@
-<h1>
-  {{title}}
-</h1>
+<div class="container-fluid">
+  <nav class="navbar navbar-toggleable-md navbar-inverse bg-primary">
+    <button class="navbar-toggler navbar-toggler-right" type="button"
+            data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false"
+            aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="#">
+      <span style="display: flex; align: baseline">
+        <img src="assets/Graphicloads-Colorful-Long-Shadow-Diary.ico"
+           width="32" height="32" alt=""
+           style="margin-right: 10px">
+        <span>
+          <b>idaho</b>
+          <span style="margin-left: 10px; margin-right: 60px; opacity: 0.7">
+            my own private diary
+          </span>
+        </span>
+      </span>
+    </a>
+    <div class="collapse navbar-collapse" id="navbarNav"
+         style="justify-content: flex-end">
+      <form class="form-inline" style="display: flex; align-self: flex-end">
+        <div class="form-group">
+          <label for="password" style="margin-right: 10px; color: #FFF">Password</label>
+          <span>
+            <input class="form-control" type="password" id="password" value="my$3CrtP455w0RD">
+            <span style="font-size: 1.25em">
+              <!-- <i class="fa fa-unlock-alt" aria-hidden="true" style="color: #D9534F"></i> -->
+              <!-- <i class="fa fa-unlock" aria-hidden="true" style="color: #5CB85C"></i> -->
+              <!-- <i class="fa fa-times" aria-hidden="true" style="color: #D9534F"></i> -->
+              <i class="fa fa-check" aria-hidden="true" style="color: #5CB85C"></i>
+            </span>
+          </span>
+        </div>
+      </form>
+      <span style="width: 10px"></span>
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Write <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Read</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- TODO: Show currently routed view here. -->
+  <div class="container-fluid" style="margin-top: 10px">
+    <h3>New Text Entry</h3>
+    <form style="margin-top: 20px">
+      <div class="form-group">
+        <input type="text" class="form-control" id="title" placeholder="Title">
+      </div>
+      <div class="form-group">
+        <textarea type="text" class="form-control" id="message"
+                  placeholder="How did your day go?"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Publish</button>
+      <button type="submit" class="btn btn-danger">Abort</button>
+    </form>
+  </div>
+</div>
