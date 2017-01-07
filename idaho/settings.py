@@ -61,7 +61,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            'idaho/templates',
+            os.path.join(BASE_DIR, 'idaho', 'templates'),
+            os.path.join(BASE_DIR, 'public', 'static'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -128,5 +129,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'public', 'static')
 STATICFILES_DIRS = [
-    'bower_components'
+    os.path.join(BASE_DIR, 'idaho', 'client', 'dist'),
 ]
