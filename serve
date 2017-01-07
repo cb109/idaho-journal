@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# Rebuild the frontend, collect it to Django's static folder and serve
+# it using its development server.
+
+# Start a subshell so we can run the command in a different directory.
+( cd idaho/client && ng build --base-href="static/" )
+
+python manage.py collectstatic --noinput
+start "http://localhost:8000"
+python manage.py runserver
