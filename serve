@@ -14,5 +14,5 @@ python manage.py runserver
 # automically-rebuilding development environment, launch three shells
 # with the following commands:
 # 1. idaho/idaho/client $ ng build --base-href="static/" --watch
-# 2. idaho/ $ while true; do python manage.py collecstatic --noinput && sleep 1; done
+# 2. idaho/ $ while true; do python manage.py collectstatic --noinput && sleep 1; done
 # 3. idaho/ $ python manage.py runserver
