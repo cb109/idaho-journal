@@ -29,41 +29,18 @@
             Write
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Text</a>
-            <a class="dropdown-item" href="#">Audio</a>
-            <a class="dropdown-item" href="#">Image</a>
+            <a class="dropdown-item" routerLink="/write/text">Text</a>
+            <a class="dropdown-item" routerLink="/write/audio">Audio</a>
+            <a class="dropdown-item" routerLink="/write/image">Image</a>
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Read</a>
+          <a class="nav-link" routerLink="/read">Read</a>
         </li>
       </ul>
     </div>
   </nav>
-
-  <!-- TODO: Show currently routed view here. -->
-  <div style="margin-top: 20px">
-
-    <div id="writeTextView">
-      <h3 style="margin-bottom: 20px">New Text Entry</h3>
-      <form>
-        <div class="form-group">
-          <input type="text" class="form-control" name="title" placeholder="Title"
-                 [(ngModel)]="title">
-        </div>
-        <div class="form-group">
-          <textarea type="text" class="form-control" name="message"
-                    placeholder="How did your day go?"
-                    style="height: 240px"
-                    [(ngModel)]="message"></textarea>
-        </div>
-        <div class="float-right">
-          <button type="submit" class="btn btn-primary"
-                  (click)="publishTextEntry(title, message)">Publish</button>
-          <button type="submit" class="btn btn-danger">Abort</button>
-        </div>
-      </form>
-    </div>
-
+  <div style="margin: 20px">
+    <router-outlet></router-outlet>
   </div>
 </div>
