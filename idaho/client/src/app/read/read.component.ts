@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Entry, EntriesService } from '../entries.service';
+
 @Component({
   selector: 'app-read',
   templateUrl: './read.component.html',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReadComponent implements OnInit {
 
-  constructor() { }
+  entries: Entry[];
+
+  constructor(private entriesService: EntriesService) { }
 
   ngOnInit() {
+    this.entriesService.getEntries()
+      .then(entries => this.entries = entries);
   }
 
 }
