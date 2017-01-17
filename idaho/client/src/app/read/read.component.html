@@ -1,3 +1,7 @@
-<ul>
-    <li *ngFor="let entry of entries">{{ entry.title }}</li>
-</ul>
+<div *ngFor="let entry of entries">
+  <h4>{{ entry.title }}</h4>
+  <div style="white-space: pre-wrap;">
+    {{ entry.body }}
+  </div>
+  <hr>
+</div>
