@@ -15,7 +15,7 @@ export class ReadComponent implements OnInit {
 
   ngOnInit() {
     this.entriesService.getEntries()
-      .then(entries => this.entries = entries);
+      .then(entries => this.entries = entries.slice().reverse());
   }
 
 }
