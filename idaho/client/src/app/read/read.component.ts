@@ -17,5 +17,4 @@ export class ReadComponent implements OnInit {
     this.entriesService.getEntries()
       .then(entries => this.entries = entries.slice().reverse());
   }
-
 }
