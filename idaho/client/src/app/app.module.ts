@@ -7,6 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { provideAuth, AuthHttp, AuthConfig } from 'angular2-jwt';
 
 import { routing, routedComponents } from './app.routing';
+import { AuthService } from './auth.service';
 import { EntriesService } from './entries.service';
 import { AppComponent } from './app.component';
 
@@ -36,6 +37,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
       useFactory: authHttpServiceFactory,
       deps: [Http, RequestOptions]
     },
+    AuthService,
     EntriesService,
   ],
   bootstrap: [AppComponent]
