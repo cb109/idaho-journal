@@ -10,6 +10,7 @@ import { routing, routedComponents } from './app.routing';
 import { AuthService } from './auth.service';
 import { EntriesService } from './entries.service';
 import { AppComponent } from './app.component';
+import { LogoutComponent } from './logout/logout.component';
 
 // Workaround for: https://github.com/auth0/angular2-jwt/issues/258
 // TODO: See if we can import and use AUTH_PROVIDERS instead.
@@ -23,6 +24,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   declarations: [
     AppComponent,
     routedComponents,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,

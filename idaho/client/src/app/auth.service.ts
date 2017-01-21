@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 export interface Token {
   token: string;
@@ -9,19 +10,20 @@ export interface Token {
 @Injectable()
 export class AuthService {
 
-  public status = false;
+  isLoggedIn = false;
 
   private tokenName = 'jwt';
   private tokenVerifyUrl = 'http://localhost:8000/api/token-verify/';
   private tokenAuthUrl = 'http://localhost:8000/api/token-auth/';
 
   constructor(private http: Http,
-              private router: Router) {
-    this.isLoggedIn()
-      .then(isLoggedIn => this.status = isLoggedIn);
+              private router: Router,
+              private location: Location) { 
+    this.checkLoggedIn()
+      .then(isLoggedIn => this.isLoggedIn = isLoggedIn);
   }
 
-  isLoggedIn(): Promise<boolean> {
+  checkLoggedIn(): Promise<boolean> {
     var token = sessionStorage.getItem(this.tokenName);
     if (!token) {
       return Promise.resolve(false);
@@ -43,18 +45,24 @@ export class AuthService {
       .then(response => {
         var token = response.json().token;
         sessionStorage.setItem(this.tokenName, token);
-        this.status = token !== undefined;
+
+        // Update login status.
+        this.isLoggedIn = token !== undefined;
+        if (this.isLoggedIn) {
+          this.router.navigateByUrl('/');
+        }
       })
       .catch(this.handleError);
   }
 
   logout(): void {
     sessionStorage.removeItem(this.tokenName);
+    this.isLoggedIn = false;
     this.router.navigateByUrl('/login');
   }
 
   abort(): void {
-    alert('abort');
+    this.location.back();
   }
 
   private handleError(error: any): Promise<any> {
