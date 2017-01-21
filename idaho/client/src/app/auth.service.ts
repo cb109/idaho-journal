@@ -22,11 +22,11 @@ export class AuthService {
   constructor(private http: Http,
               private router: Router,
               private location: Location) { 
-    this.checkLoggedIn()
+    this.verifyToken()
       .then(isLoggedIn => this.isLoggedIn = isLoggedIn);
   }
 
-  checkLoggedIn(): Promise<boolean> {
+  verifyToken(): Promise<boolean> {
     var token = sessionStorage.getItem(this.tokenName);
     if (!token) {
       return Promise.resolve(false);

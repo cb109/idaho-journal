@@ -1,5 +1,7 @@
 import { Routes, RouterModule} from '@angular/router';
 
+import { AuthGuardService } from './auth-guard.service';
+
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { WriteComponent } from './write/write.component';
@@ -21,19 +23,23 @@ const appRoutes: Routes = [
   },
   {
     path: 'write/text',
-    component: WriteComponent
+    component: WriteComponent,
+    canActivate: [AuthGuardService],
   },
   {
     path: 'write/audio',
-    component: WriteComponent
+    component: WriteComponent,
+    canActivate: [AuthGuardService],
   },
   {
     path: 'write/image',
-    component: WriteComponent
+    component: WriteComponent,
+    canActivate: [AuthGuardService],
   },
   {
     path: 'read',
-    component: ReadComponent
+    component: ReadComponent,
+    canActivate: [AuthGuardService],
   },
 ];
 
