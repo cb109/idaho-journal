@@ -6,9 +6,11 @@ import { HttpModule, Http, RequestOptions } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { provideAuth, AuthHttp, AuthConfig } from 'angular2-jwt';
 
-import { routing, routedComponents } from './app.routing';
 import { AuthService } from './auth.service';
+import { AuthGuardService } from './auth-guard.service';
 import { EntriesService } from './entries.service';
+
+import { routing, routedComponents } from './app.routing';
 import { AppComponent } from './app.component';
 import { LogoutComponent } from './logout/logout.component';
 
@@ -40,6 +42,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
       deps: [Http, RequestOptions]
     },
     AuthService,
+    AuthGuardService,
     EntriesService,
   ],
   bootstrap: [AppComponent]
