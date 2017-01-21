@@ -9,7 +9,10 @@ import { ToastrModule } from 'toastr-ng2';
 
 import { AuthService } from './auth.service';
 import { AuthGuardService } from './auth-guard.service';
+import { PasswordService } from './password.service';
+import { EncryptionService } from './encryption.service';
 import { EntriesService } from './entries.service';
+
 import { routing, routedComponents } from './app.routing';
 import { AppComponent } from './app.component';
 import { LogoutComponent } from './logout/logout.component';
@@ -46,6 +49,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     },
     AuthService,
     AuthGuardService,
+    PasswordService,
+    EncryptionService,
     EntriesService,
   ],
   bootstrap: [AppComponent]

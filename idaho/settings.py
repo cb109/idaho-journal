@@ -76,7 +76,7 @@ REST_FRAMEWORK = {
 }
 
 JWT_AUTH = {
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(minutes=60),
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(minutes=180),
 }
 
 ROOT_URLCONF = 'idaho.urls'
