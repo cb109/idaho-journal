@@ -7,6 +7,7 @@ import 'rxjs/add/operator/catch';
 
 import { ToastrService } from 'toastr-ng2';
 
+import { PasswordService } from '../password.service';
 import { EncryptionService } from '../encryption.service';
 
 interface TextEntry {
@@ -25,6 +26,7 @@ export class WriteComponent implements OnInit {
   entriesUrl = 'http://localhost:8000/api/entries/';
 
   constructor(private http: Http,
+              private passwordService: PasswordService,
               private encryptionService: EncryptionService,
               private location: Location,
               private toastr: ToastrService) {}
@@ -33,12 +35,15 @@ export class WriteComponent implements OnInit {
   }
 
   private createTextEntry(title: string, message: string): TextEntry {
-    var adminId = 1;
-    var encryptedTitle = this.encryptionService.toEncryptedString(
-      'password', title);
-    var encryptedMessage = this.encryptionService.toEncryptedString(
-      'password', message);
-
+    var password = this.passwordService.retrieve();
+    if (!password) {
+      throw('Could not retrieve encryption password, aborting.')
+    }
+    var adminId = 1;  // FIXME: Use the logged-in user.
+    var encryptedTitle = this.encryptionService.toEncryptedString(password,
+                                                                  title);
+    var encryptedMessage = this.encryptionService.toEncryptedString(password,
+                                                                    message);
     var entry = {'author': adminId,
                  'title': encryptedTitle,
                  'body': encryptedMessage}
