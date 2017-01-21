@@ -12,7 +12,10 @@ export class AuthService {
 
   isLoggedIn = false;
 
+  // Store these in the sessionStorage.
   private tokenName = 'jwt';
+  private userName = 'username';
+
   private tokenVerifyUrl = 'http://localhost:8000/api/token-verify/';
   private tokenAuthUrl = 'http://localhost:8000/api/token-auth/';
 
@@ -37,6 +40,10 @@ export class AuthService {
       .catch(this.handleError);
   }
 
+  getLoggedInUser(): string {
+    return sessionStorage.getItem(this.userName) || '';
+  }
+
   login(username: string, password: string) {
     return this.http
       .post(this.tokenAuthUrl, {'username': username,
@@ -44,11 +51,13 @@ export class AuthService {
       .toPromise()
       .then(response => {
         var token = response.json().token;
-        sessionStorage.setItem(this.tokenName, token);
 
-        // Update login status.
+        // Validate response, then store user and token in
+        // the browser session before updating the view.
         this.isLoggedIn = token !== undefined;
         if (this.isLoggedIn) {
+          sessionStorage.setItem(this.userName, username);
+          sessionStorage.setItem(this.tokenName, token);
           this.router.navigateByUrl('/');
         }
       })
@@ -56,6 +65,7 @@ export class AuthService {
   }
 
   logout(): void {
+    sessionStorage.removeItem(this.userName);
     sessionStorage.removeItem(this.tokenName);
     this.isLoggedIn = false;
     this.router.navigateByUrl('/login');
