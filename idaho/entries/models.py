@@ -15,7 +15,7 @@ class DiaryEntry(models.Model):
     modified_at = models.DateTimeField(auto_now=True)
 
     # These will contain encrypted data.
-    title = models.CharField(max_length=255)
+    title = models.TextField()
     body = models.TextField()
 
     def __str__(self):
