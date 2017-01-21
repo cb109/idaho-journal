@@ -1,6 +1,6 @@
-<div class="container" style="max-width: 800px">
-  <nav class="navbar navbar-toggleable-md navbar-inverse bg-primary"
-       style="opacity: 0.95">
+<div class="container">
+  <nav class="navbar navbar-toggleable-md navbar-inverse bg-primary fixed-top"
+       style="opacity: 0.9">
     <button class="navbar-toggler navbar-toggler-right" type="button"
             data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false"
@@ -39,7 +39,7 @@
             <i class="fa fa-camera" style="font-size: 1.5em"></i>
           </a>
         </li>
-        <li class="nav-item" *ngIf="authService.isLoggedIn" title="Read Entries">
+        <li class="nav-item" *ngIf="authService.isLoggedIn" title="Read your Diary">
           <a class="nav-link" routerLink="/read" routerLinkActive="active">
             <i class="fa fa-book" style="font-size: 1.5em"></i>
           </a>
@@ -66,7 +66,7 @@
       </ul>
     </div>
   </nav>
-  <div style="margin: 20px">
+  <div style="margin: 20px; margin-top: 80px">
     <router-outlet></router-outlet>
   </div>
 </div>

@@ -3,14 +3,12 @@ import { Http } from '@angular/http';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 
-export interface Token {
-  token: string;
-}
+import { ToastrService } from 'toastr-ng2';
 
 @Injectable()
 export class AuthService {
 
-  isLoggedIn = false;
+  isLoggedIn = false;  // FIXME: Remove this state and use Observables instead.
 
   // Store these in the sessionStorage.
   private tokenName = 'jwt';
@@ -21,7 +19,8 @@ export class AuthService {
 
   constructor(private http: Http,
               private router: Router,
-              private location: Location) { 
+              private location: Location,
+              private toastr: ToastrService) {
     this.verifyToken()
       .then(isLoggedIn => this.isLoggedIn = isLoggedIn);
   }
@@ -58,16 +57,23 @@ export class AuthService {
         if (this.isLoggedIn) {
           sessionStorage.setItem(this.userName, username);
           sessionStorage.setItem(this.tokenName, token);
+          this.toastr.success('You are now logged in.', 'Login successful');
           this.router.navigateByUrl('/');
         }
       })
-      .catch(this.handleError);
+      .catch(response => {
+        this.toastr.error(
+          'Could not authenticate. Please check your credentials.', 
+          'Login failed');
+        this.handleError(response);
+      });
   }
 
   logout(): void {
     sessionStorage.removeItem(this.userName);
     sessionStorage.removeItem(this.tokenName);
     this.isLoggedIn = false;
+    this.toastr.success('You have been logged out.', 'Logout successful')
     this.router.navigateByUrl('/login');
   }
 

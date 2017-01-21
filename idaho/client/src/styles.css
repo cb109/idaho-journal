@@ -1,1 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Add 3rd party library styles */
+@import "../node_modules/font-awesome/css/font-awesome.min.css";
+@import "../node_modules/toastr-ng2/toastr.css";
