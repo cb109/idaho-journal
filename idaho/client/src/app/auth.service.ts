@@ -76,6 +76,7 @@ export class AuthService {
   logout(): void {
     sessionStorage.removeItem(this.userName);
     sessionStorage.removeItem(this.tokenName);
+    this.passwordService.clear()
     this.isLoggedIn = false;
     this.toastr.success('You have been logged out.', 'Logout successful')
     this.router.navigateByUrl('/login');
