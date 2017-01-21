@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Location } from '@angular/common';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
+
+import { ToastrService } from 'toastr-ng2';
 
 interface TextEntry {
   author?: number;
@@ -21,9 +23,12 @@ export class WriteComponent implements OnInit {
 
   entriesUrl = 'http://localhost:8000/api/entries/';
 
-  constructor(private http: Http) {}
+  constructor(private http: Http,
+              private location: Location,
+              private toastr: ToastrService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   private createTextEntry(title: string, message: string): TextEntry {
     var adminId = 1;
@@ -37,9 +42,27 @@ export class WriteComponent implements OnInit {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    console.log("sending post!");
-    this.http.post(this.entriesUrl, entry, options)
-             .subscribe();
+    this.http
+      .post(this.entriesUrl, entry, options)
+      .catch(error => {
+        console.error(error);
+        this.toastr.error(
+          'Your text entry could not be published: ' + error._body,
+          'Publish failed');
+        return Observable.of(error);
+      })
+      .subscribe(response => {
+        if (response.ok) {
+          console.log(response);
+          this.toastr.success(
+            'Your text entry has been published.',
+            'Publish successful');
+        }
+      });
+  }
+
+  abort() {
+    this.location.back();
   }
 
 }
