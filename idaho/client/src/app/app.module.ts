@@ -1,23 +1,47 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http, RequestOptions } from '@angular/http';
 
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { provideAuth, AuthHttp, AuthConfig } from 'angular2-jwt';
 
+import { routing, routedComponents } from './app.routing';
+import { AuthService } from './auth.service';
+import { EntriesService } from './entries.service';
 import { AppComponent } from './app.component';
+import { LogoutComponent } from './logout/logout.component';
+
+// Workaround for: https://github.com/auth0/angular2-jwt/issues/258
+// TODO: See if we can import and use AUTH_PROVIDERS instead.
+export function authHttpServiceFactory(http: Http, options: RequestOptions) {
+  // FIXME: Enable this error again as needed.
+  var config = new AuthConfig({noJwtError: true});
+  return new AuthHttp(config, http, options);
+}
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    routedComponents,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     NgbModule.forRoot(),
+    routing,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: AuthHttp,
+      useFactory: authHttpServiceFactory,
+      deps: [Http, RequestOptions]
+    },
+    AuthService,
+    EntriesService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

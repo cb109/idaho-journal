@@ -7,4 +7,4 @@ from idaho.entries.serializers import DiaryEntrySerializer
 class DiaryEntryViewSet(viewsets.ModelViewSet):
     queryset = DiaryEntry.objects.all()
     serializer_class = DiaryEntrySerializer
-    permission_classes = (permissions.IsAuthenticated,)
+    # permission_classes = (permissions.IsAuthenticated,)
