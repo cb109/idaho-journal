@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Location } from '@angular/common';
-
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 
 import { ToastrService } from 'toastr-ng2';
+
+import { EncryptionService } from '../encryption.service';
 
 interface TextEntry {
   author?: number;
@@ -24,6 +25,7 @@ export class WriteComponent implements OnInit {
   entriesUrl = 'http://localhost:8000/api/entries/';
 
   constructor(private http: Http,
+              private encryptionService: EncryptionService,
               private location: Location,
               private toastr: ToastrService) {}
 
@@ -32,7 +34,14 @@ export class WriteComponent implements OnInit {
 
   private createTextEntry(title: string, message: string): TextEntry {
     var adminId = 1;
-    var entry = {'author': adminId, 'title': title, 'body': message}
+    var encryptedTitle = this.encryptionService.toEncryptedString(
+      'password', title);
+    var encryptedMessage = this.encryptionService.toEncryptedString(
+      'password', message);
+
+    var entry = {'author': adminId,
+                 'title': encryptedTitle,
+                 'body': encryptedMessage}
     return entry
   }
 
