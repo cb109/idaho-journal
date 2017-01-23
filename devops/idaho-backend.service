@@ -1,0 +1,11 @@
+[Unit]
+Description=Idaho Backend
+
+[Service]
+User=root
+WorkingDirectory=/opt/projects/idaho
+ExecStart=/root/.virtualenvs/idaho/bin/python /opt/projects/idaho/manage.py runserver 0.0.0.0:8000
+
+[Install]
+WantedBy=multi-user.target
+Alias=idaho-backend.service
