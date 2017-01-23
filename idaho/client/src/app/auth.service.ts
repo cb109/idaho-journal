@@ -31,7 +31,6 @@ export class AuthService {
     if (!token) {
       return Promise.resolve(false);
     }
-    console.log(environment);
     return this.http
       .post(environment.tokenVerifyUrl, {'token': token})
       .toPromise()
