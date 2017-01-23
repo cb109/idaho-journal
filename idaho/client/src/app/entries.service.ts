@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 import { AuthHttp } from 'angular2-jwt';
 
+import { environment } from '../environments/environment';
+
 export interface Entry {
   title: string;
   body: string;
@@ -11,13 +13,11 @@ export interface Entry {
 @Injectable()
 export class EntriesService {
 
-  private entriesUrl = 'http://localhost:8000/api/entries';
-
   constructor(private authHttp: AuthHttp) { }
 
   getEntries() {
     return this.authHttp
-      .get(this.entriesUrl)
+      .get(environment.entriesUrl)
       .toPromise()
       .then(response => response.json() as Entry[])
       .catch(this.handleError);

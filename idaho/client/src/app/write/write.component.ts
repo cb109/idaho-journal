@@ -7,6 +7,7 @@ import 'rxjs/add/operator/catch';
 
 import { ToastrService } from 'toastr-ng2';
 
+import { environment } from '../../environments/environment';
 import { PasswordService } from '../password.service';
 import { EncryptionService } from '../encryption.service';
 
@@ -22,8 +23,6 @@ interface TextEntry {
   styleUrls: ['./write.component.css']
 })
 export class WriteComponent implements OnInit {
-
-  entriesUrl = 'http://localhost:8000/api/entries/';
 
   constructor(private http: Http,
               private passwordService: PasswordService,
@@ -57,7 +56,7 @@ export class WriteComponent implements OnInit {
     let options = new RequestOptions({ headers: headers });
 
     this.http
-      .post(this.entriesUrl, entry, options)
+      .post(environment.entriesUrl, entry, options)
       .catch(error => {
         console.error(error);
         this.toastr.error(

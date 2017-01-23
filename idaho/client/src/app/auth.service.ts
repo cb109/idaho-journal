@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 
 import { ToastrService } from 'toastr-ng2';
 
+import { environment } from '../environments/environment';
 import { PasswordService } from './password.service';
 
 @Injectable()
@@ -15,9 +16,6 @@ export class AuthService {
   // Store these in the sessionStorage.
   private tokenName = 'idaho_jwt';
   private userName = 'idaho_username';
-
-  private tokenVerifyUrl = 'http://localhost:8000/api/token-verify/';
-  private tokenAuthUrl = 'http://localhost:8000/api/token-auth/';
 
   constructor(private http: Http,
               private router: Router,
@@ -33,8 +31,9 @@ export class AuthService {
     if (!token) {
       return Promise.resolve(false);
     }
+    console.log(environment);
     return this.http
-      .post(this.tokenVerifyUrl, {'token': token})
+      .post(environment.tokenVerifyUrl, {'token': token})
       .toPromise()
       .then(response => {
         return response.json().token !== undefined;
@@ -48,8 +47,8 @@ export class AuthService {
 
   login(username: string, password: string) {
     return this.http
-      .post(this.tokenAuthUrl, {'username': username,
-                                'password': password})
+      .post(environment.tokenAuthUrl, {'username': username,
+                                         'password': password})
       .toPromise()
       .then(response => {
         var token = response.json().token;

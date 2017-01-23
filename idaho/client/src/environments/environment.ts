@@ -3,6 +3,11 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `angular-cli.json`.
 
-export const environment = {
-  production: false
+export var environment = {
+  production: false,
+
+  apiUrl: 'http://localhost:8000/api',
+  tokenVerifyUrl: 'http://localhost:8000/api/token-verify/',
+  tokenAuthUrl: 'http://localhost:8000/api/token-auth/',
+  entriesUrl: 'http://localhost:8000/api/entries/',
 };
