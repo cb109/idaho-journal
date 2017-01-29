@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { CanActivate } from '@angular/router';
+import { Router, CanActivate } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/first';
+import 'rxjs/add/operator/map';
 
 import { AuthService } from './auth.service';
 
@@ -10,17 +15,16 @@ export class AuthGuardService implements CanActivate {
   constructor(private authService: AuthService, 
               private router: Router) {}
 
-  // FIXME: This is buggy as when reloading the page the initial
-  //   value of 'isLoggedIn' is always false, but may change when
-  //   the promise resolves. We need to wait for it and work with
-  //   Observables here, probably also in the auth.service.ts.
-  canActivate() {
-    if (!this.authService.isLoggedIn) {
-      console.log('You must be logged in to view this. Redirecting...');
-      this.router.navigateByUrl('/login');
-      return false;
-    }
-    return true;
+  canActivate(): Observable<boolean> {
+    return this.authService.verifyToken()
+      .map(tokenValid => {
+        if (!tokenValid) {
+          console.log('You must be logged in to view this. Redirecting...');
+          this.router.navigateByUrl('/login');
+          return false;
+        }
+        return true;
+      })
+      .first();  // Make sure the Observable completes.
   }
-
 }
