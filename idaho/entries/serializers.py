@@ -4,6 +4,10 @@ from idaho.entries.models import DiaryEntry
 
 
 class DiaryEntrySerializer(serializers.ModelSerializer):
+    author = serializers.PrimaryKeyRelatedField(
+        read_only=True,
+        default=serializers.CurrentUserDefault()
+    )
 
     class Meta:
         model = DiaryEntry
