@@ -51,7 +51,6 @@ export class WriteComponent implements OnInit {
 
   publishTextEntry(title: string, message: string, form: any): void {
     var entry = this.createTextEntry(title, message);
-    console.log(entry);
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
@@ -66,7 +65,6 @@ export class WriteComponent implements OnInit {
       })
       .subscribe(response => {
         if (response.ok) {
-          console.log(response);
           this.toastr.success(
             '"' + title + '" has been published.',
             'Publish successful');
