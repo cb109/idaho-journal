@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
 
 import { ToastrService } from 'toastr-ng2';
 
@@ -22,32 +26,36 @@ export class AuthService {
               private location: Location,
               private passwordService: PasswordService,
               private toastr: ToastrService) {
-    this.verifyToken()
-      .then(isLoggedIn => this.isLoggedIn = isLoggedIn);
   }
 
-  verifyToken(): Promise<boolean> {
+  verifyToken(): Observable<boolean> {
     var token = sessionStorage.getItem(this.tokenName);
     if (!token) {
-      return Promise.resolve(false);
+      return Observable.of(false);
     }
     return this.http
       .post(environment.tokenVerifyUrl, {'token': token})
-      .toPromise()
-      .then(response => {
-        return response.json().token !== undefined;
+      .map((response: Response) => {
+          var validTokenReceived = (
+            response && response.json().token !== undefined);
+          this.isLoggedIn = true;
+          return validTokenReceived;
       })
-      .catch(this.handleError);
+      .catch(err => {
+        this.isLoggedIn = false;
+        return Observable.of(false);
+      })
   }
 
   getLoggedInUser(): string {
     return sessionStorage.getItem(this.userName) || '';
   }
 
+  // FIXME: Promises are so 2015, use Observables instead.
   login(username: string, password: string) {
     return this.http
       .post(environment.tokenAuthUrl, {'username': username,
-                                         'password': password})
+                                       'password': password})
       .toPromise()
       .then(response => {
         var token = response.json().token;
