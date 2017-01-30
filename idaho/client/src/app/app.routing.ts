@@ -9,11 +9,6 @@ import { ReadComponent } from './read/read.component';
 
 const appRoutes: Routes = [
   {
-    path: '',
-    redirectTo: '/write/text',
-    pathMatch: 'full'
-  },
-  {
     path: 'login',
     component: LoginComponent
   },
@@ -41,6 +36,17 @@ const appRoutes: Routes = [
     component: ReadComponent,
     canActivate: [AuthGuardService],
   },
+  // Fallback routes:
+  {
+    path: '',
+    redirectTo: '/write/text',
+    pathMatch: 'full'
+  },
+  {
+    path: "**",
+    redirectTo: '/write/text',
+  }
+
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);
