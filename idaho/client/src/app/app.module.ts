@@ -13,14 +13,19 @@ import { PasswordService } from './password.service';
 import { EncryptionService } from './encryption.service';
 import { EntriesService } from './entries.service';
 
+import { STORAGE_TOKEN_NAME } from './constants';
 import { routing, routedComponents } from './app.routing';
 import { AppComponent } from './app.component';
 
 // Workaround for: https://github.com/auth0/angular2-jwt/issues/258
 // TODO: See if we can import and use AUTH_PROVIDERS instead.
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
-  // FIXME: Enable this error again as needed.
-  var config = new AuthConfig({noJwtError: true});
+  var config = new AuthConfig({
+    noJwtError: true,  // FIXME: Enable this error again as needed.
+    headerPrefix: 'JWT',
+    tokenName: STORAGE_TOKEN_NAME,
+    tokenGetter: () => sessionStorage.getItem(STORAGE_TOKEN_NAME),
+  });
   return new AuthHttp(config, http, options);
 }
 
