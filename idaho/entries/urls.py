@@ -5,7 +5,7 @@ from idaho.entries import views
 
 
 router = routers.DefaultRouter()
-router.register(r"entries", views.DiaryEntryViewSet)
+router.register(r"entries", views.DiaryEntryViewSet, base_name="entries")
 
 urlpatterns = [
     url(r"^", include(router.urls)),
