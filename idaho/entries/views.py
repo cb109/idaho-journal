@@ -9,4 +9,4 @@ class DiaryEntryViewSet(viewsets.ModelViewSet):
     serializer_class = DiaryEntrySerializer
     # FIXME: Reenable this once all our frontend requests use the JWT
     #   in their request headers.
-    # permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,)
