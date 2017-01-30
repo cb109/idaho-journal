@@ -9,6 +9,7 @@ import 'rxjs/add/operator/map';
 
 import { ToastrService } from 'toastr-ng2';
 
+import { STORAGE_TOKEN_NAME, STORAGE_USER_NAME } from './constants';
 import { environment } from '../environments/environment';
 import { PasswordService } from './password.service';
 
@@ -16,10 +17,6 @@ import { PasswordService } from './password.service';
 export class AuthService {
 
   isLoggedIn = false;  // FIXME: Remove this state and use Observables instead.
-
-  // Store these in the sessionStorage.
-  private tokenName = 'idaho_jwt';
-  private userName = 'idaho_username';
 
   constructor(private http: Http,
               private router: Router,
@@ -29,7 +26,7 @@ export class AuthService {
   }
 
   verifyToken(): Observable<boolean> {
-    var token = sessionStorage.getItem(this.tokenName);
+    var token = sessionStorage.getItem(STORAGE_TOKEN_NAME);
     if (!token) {
       return Observable.of(false);
     }
@@ -48,7 +45,7 @@ export class AuthService {
   }
 
   getLoggedInUser(): string {
-    return sessionStorage.getItem(this.userName) || '';
+    return sessionStorage.getItem(STORAGE_USER_NAME) || '';
   }
 
   // FIXME: Promises are so 2015, use Observables instead.
@@ -64,8 +61,8 @@ export class AuthService {
         // the browser session before updating the view.
         this.isLoggedIn = token !== undefined;
         if (this.isLoggedIn) {
-          sessionStorage.setItem(this.userName, username);
-          sessionStorage.setItem(this.tokenName, token);
+          sessionStorage.setItem(STORAGE_USER_NAME, username);
+          sessionStorage.setItem(STORAGE_TOKEN_NAME, token);
           this.passwordService.store(password);
           this.toastr.success('You are now logged in.', 'Login successful');
           this.router.navigateByUrl('/');
@@ -80,8 +77,8 @@ export class AuthService {
   }
 
   logout(): void {
-    sessionStorage.removeItem(this.userName);
-    sessionStorage.removeItem(this.tokenName);
+    sessionStorage.removeItem(STORAGE_USER_NAME);
+    sessionStorage.removeItem(STORAGE_TOKEN_NAME);
     this.passwordService.clear()
     this.isLoggedIn = false;
     this.toastr.success('You have been logged out.', 'Logout successful')
