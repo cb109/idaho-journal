@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Response } from '@angular/http';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
@@ -7,6 +7,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
+import { AuthHttp } from 'angular2-jwt';
 import { ToastrService } from 'toastr-ng2';
 
 import { STORAGE_TOKEN_NAME, STORAGE_USER_NAME } from './constants';
@@ -18,7 +19,7 @@ export class AuthService {
 
   isLoggedIn = false;  // FIXME: Remove this state and use Observables instead.
 
-  constructor(private http: Http,
+  constructor(private authHttp: AuthHttp,
               private router: Router,
               private location: Location,
               private passwordService: PasswordService,
@@ -30,7 +31,7 @@ export class AuthService {
     if (!token) {
       return Observable.of(false);
     }
-    return this.http
+    return this.authHttp
       .post(environment.tokenVerifyUrl, {'token': token})
       .map((response: Response) => {
           var validTokenReceived = (
@@ -50,7 +51,7 @@ export class AuthService {
 
   // FIXME: Promises are so 2015, use Observables instead.
   login(username: string, password: string) {
-    return this.http
+    return this.authHttp
       .post(environment.tokenAuthUrl, {'username': username,
                                        'password': password})
       .toPromise()

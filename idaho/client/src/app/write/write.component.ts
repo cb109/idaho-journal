@@ -6,6 +6,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 
 import { ToastrService } from 'toastr-ng2';
+import { AuthHttp } from 'angular2-jwt';
 
 import { environment } from '../../environments/environment';
 import { PasswordService } from '../password.service';
@@ -24,7 +25,7 @@ interface TextEntry {
 })
 export class WriteComponent implements OnInit {
 
-  constructor(private http: Http,
+  constructor(private authHttp: AuthHttp,
               private passwordService: PasswordService,
               private encryptionService: EncryptionService,
               private location: Location,
@@ -38,23 +39,20 @@ export class WriteComponent implements OnInit {
     if (!password) {
       throw('Could not retrieve encryption password, aborting.')
     }
-    var adminId = 1;  // FIXME: Use the logged-in user.
     var encryptedTitle = this.encryptionService.toEncryptedString(password,
                                                                   title);
     var encryptedMessage = this.encryptionService.toEncryptedString(password,
                                                                     message);
-    var entry = {'author': adminId,
-                 'title': encryptedTitle,
-                 'body': encryptedMessage}
+    var entry = {'title': encryptedTitle, 'body': encryptedMessage}
     return entry
   }
 
   publishTextEntry(title: string, message: string, form: any): void {
     var entry = this.createTextEntry(title, message);
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
+    var headers = new Headers({ 'Content-Type': 'application/json' });
+    var options = new RequestOptions({ headers: headers });
 
-    this.http
+    this.authHttp
       .post(environment.entriesUrl, entry, options)
       .catch(error => {
         console.error(error);
