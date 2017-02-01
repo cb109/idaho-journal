@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     # 3rd party.
     'corsheaders',
     'rest_framework',
-    'rest_framework.authtoken',
     'rest_framework_swagger',
     'sslserver',
 
