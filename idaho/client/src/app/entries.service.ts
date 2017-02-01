@@ -3,12 +3,8 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 import { AuthHttp } from 'angular2-jwt';
 
+import { Entry } from './entry';
 import { environment } from '../environments/environment';
-
-export interface Entry {
-  title: string;
-  body: string;
-}
 
 @Injectable()
 export class EntriesService {
