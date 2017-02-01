@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Entry, EntriesService } from '../entries.service';
+import { Entry } from '../entry';
+import { EntriesService } from '../entries.service';
 import { Encrypted, EncryptionService } from '../encryption.service';
 import { PasswordService } from '../password.service';
 
