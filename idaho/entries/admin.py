@@ -11,12 +11,14 @@ class DiaryEntryAdmin(admin.ModelAdmin):
     )
     fields = (
         "title",
+        "kind",
         "body",
         "author",
     )
     list_display = (
         "title",
         "author",
+        "kind",
         "created_at",
         "modified_at",
         "id"

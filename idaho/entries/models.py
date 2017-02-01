@@ -13,6 +13,7 @@ class DiaryEntry(models.Model):
     author = models.ForeignKey(User)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+    kind = models.TextField()
 
     # These will contain encrypted data.
     title = models.TextField()
