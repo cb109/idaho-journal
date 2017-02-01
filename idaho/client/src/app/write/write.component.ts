@@ -8,15 +8,10 @@ import 'rxjs/add/operator/catch';
 import { ToastrService } from 'toastr-ng2';
 import { AuthHttp } from 'angular2-jwt';
 
+import { Entry } from '../entry';
 import { environment } from '../../environments/environment';
 import { PasswordService } from '../password.service';
 import { EncryptionService } from '../encryption.service';
-
-interface TextEntry {
-  author?: number;
-  title: string;
-  body: string;
-}
 
 @Component({
   selector: 'app-write',
@@ -34,7 +29,7 @@ export class WriteComponent implements OnInit {
   ngOnInit() {
   }
 
-  private createTextEntry(title: string, message: string): TextEntry {
+  private createTextEntry(title: string, message: string): Entry {
     var password = this.passwordService.retrieve();
     if (!password) {
       throw('Could not retrieve encryption password, aborting.')
@@ -43,8 +38,10 @@ export class WriteComponent implements OnInit {
                                                                   title);
     var encryptedMessage = this.encryptionService.toEncryptedString(password,
                                                                     message);
-    var entry = {'title': encryptedTitle, 'body': encryptedMessage}
-    return entry
+    var entry = {'title': encryptedTitle,
+                 'body': encryptedMessage,
+                 'kind': 'text'};
+    return entry;
   }
 
   publishTextEntry(title: string, message: string, form: any): void {
