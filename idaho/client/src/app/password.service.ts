@@ -3,18 +3,18 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class PasswordService {
 
-  private passwordName = 'idaho_password';
+  _passwordName = 'idaho_password';
 
   constructor() { }
 
   store(password: string): string {
     var base64Password = btoa(password);
-    sessionStorage.setItem(this.passwordName, base64Password);
+    sessionStorage.setItem(this._passwordName, base64Password);
     return base64Password;
   }
 
   retrieve(): string {
-    var base64Password = sessionStorage.getItem(this.passwordName);
+    var base64Password = sessionStorage.getItem(this._passwordName);
     if (!base64Password) {
       return '';
     }
@@ -23,6 +23,6 @@ export class PasswordService {
   }
 
   clear(): void {
-    sessionStorage.removeItem(this.passwordName);
+    sessionStorage.removeItem(this._passwordName);
   }
 }
