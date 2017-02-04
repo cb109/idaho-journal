@@ -6,5 +6,10 @@
     {{ entry.body }}
   </div>
   <img type="file" [src]="entry.body" *ngIf="entry.kind == 'image'">
+  <div style="margin-top: 10px">
+    <button class="btn btn-danger" (click)="deleteEntry(entry)">
+      <i class="fa fa-trash"></i>
+    </button>
+  </div>
   <hr>
 </div>
