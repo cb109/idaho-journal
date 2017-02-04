@@ -31,16 +31,15 @@ export class ImageComponent implements OnInit {
   }
 
   src: string = "";
-  // resizeOptions: ResizeOptions = {
-  //   resizeMaxHeight: 128,
-  //   resizeMaxWidth: 128
-  // };
+  resizeOptions: ResizeOptions = {
+    resizeMaxHeight: 1200,
+    resizeMaxWidth: 800,
+  };
 
   imageSelected(imageResult: ImageResult) {
     this.src = imageResult.resized
       && imageResult.resized.dataURL
       || imageResult.dataURL;
-    console.log(this.src);
   }
 
   private createImageEntry(title: string, image: string): Entry {
@@ -58,9 +57,7 @@ export class ImageComponent implements OnInit {
     return entry
   }
 
-  publishImageEntry(title: string, form: any): void {
-    console.log("form image", form);
-
+  publishImageEntry(title: string, form: any, imgPreview: any): void {
     var entry = this.createImageEntry(title, this.src);
     var headers = new Headers({ 'Content-Type': 'application/json' });
     var options = new RequestOptions({ headers: headers });
@@ -79,7 +76,9 @@ export class ImageComponent implements OnInit {
           this.toastr.success(
             '"' + title + '" has been published.',
             'Publish successful');
+
           form.reset();
+          imgPreview.src = '';
           this.toastr.info('', 'Form has been reset');
         }
       });

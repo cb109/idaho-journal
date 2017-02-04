@@ -5,16 +5,15 @@
            [(ngModel)]="title" required>
   </div>
   <div class="form-group">
-    <img type="file" [src]="src" [hidden]="!src">
-    <br>
     <input type="file" class="form-control" name="image"
-           image-upload (imageSelected)="imageSelected($event)">
-           <!--[resizeOptions]="resizeOptions">`-->
+           image-upload (imageSelected)="imageSelected($event)"
+           [resizeOptions]="resizeOptions">`
   </div>
-  <div class="float-right">
+  <div class="float-right" style="margin-bottom: 20px">
     <button type="submit" class="btn btn-primary"
-            (click)="publishImageEntry(title, form)">Publish</button>
+            (click)="publishImageEntry(title, form, imgPreview)">Publish</button>
     <button type="button" class="btn btn-danger"
             (click)="abort()">Abort</button>
   </div>
+  <img #imgPreview type="file" [src]="src" [hidden]="!src">
 </form>
