@@ -11,11 +11,14 @@ export class EntriesService {
 
   constructor(private authHttp: AuthHttp) { }
 
-  getEntries() {
+  getEntries(entriesUrl?: string) {
+    if (!entriesUrl) {
+      var entriesUrl = environment.entriesUrl;
+    }
     return this.authHttp
-      .get(environment.entriesUrl)
+      .get(entriesUrl)
       .toPromise()
-      .then(response => response.json() as Entry[])
+      .then(response => response.json())
       .catch(this.handleError);
   }
 
