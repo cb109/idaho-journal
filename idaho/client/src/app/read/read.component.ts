@@ -36,7 +36,7 @@ export class ReadComponent implements OnInit {
 
   getDecryptedEntries() {
     this.entriesService.getEntries(this.fetchNextUrl)
-      .then(response => {
+      .subscribe(response => {
         // This will trigger loading the next paginated results.
         // It will become null when fully consumed, which will
         // cause the entriesService to fall back to its default.

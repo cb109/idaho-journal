@@ -39,7 +39,8 @@ export class AuthService {
           this.isLoggedIn = true;
           return validTokenReceived;
       })
-      .catch(err => {
+      .catch(error => {
+        console.error(error);
         this.isLoggedIn = false;
         return Observable.of(false);
       })
@@ -54,8 +55,14 @@ export class AuthService {
     return this.authHttp
       .post(environment.tokenAuthUrl, {'username': username,
                                        'password': password})
-      .toPromise()
-      .then(response => {
+      .catch(error => {
+        console.error(error);
+        this.toastr.error(
+          'Could not authenticate. Please check your credentials.',
+          'Login failed');
+        return Observable.of(error);
+      })
+      .subscribe(response => {
         var token = response.json().token;
 
         // Validate response, then store user, password and token in
@@ -69,12 +76,6 @@ export class AuthService {
           this.router.navigateByUrl('/');
         }
       })
-      .catch(response => {
-        this.toastr.error(
-          'Could not authenticate. Please check your credentials.',
-          'Login failed');
-        this.handleError(response);
-      });
   }
 
   logout(): void {
@@ -88,10 +89,5 @@ export class AuthService {
 
   abort(): void {
     this.location.back();
-  }
-
-  private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error);
-    return Promise.reject(error.message || error);
   }
 }
