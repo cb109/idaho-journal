@@ -59,7 +59,7 @@ export class ImageComponent implements OnInit {
     return entry
   }
 
-  publishImageEntry(title: string, form: any, imgPreview: any): void {
+  publishImageEntry(title: string, form: any): void {
     var entry = this.createImageEntry(title, this.src);
     var headers = new Headers({ 'Content-Type': 'application/json' });
     var options = new RequestOptions({ headers: headers });
@@ -80,7 +80,7 @@ export class ImageComponent implements OnInit {
             'Publish successful');
 
           form.reset();
-          imgPreview.src = '';
+          this.src = '';
           this.toastr.info('', 'Form has been reset');
         }
       });
