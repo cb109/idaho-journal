@@ -43,7 +43,12 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     HttpModule,
 
     NgbModule.forRoot(),
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      'preventDuplicates': true,
+      'positionClass': 'toast-bottom-full-width',
+      'timeOut': 2500,
+      'extendedTimeOut': 100,
+    }),
     ImageUploadModule,
 
     routing,
