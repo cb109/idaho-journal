@@ -20,7 +20,12 @@ export class EntriesService {
     }
     return this.authHttp
       .get(entriesUrl)
-      .map(response => response.json())
+      .map(response => {
+        console.log('getEntries() ->');
+        console.log(response);
+        console.log(response.json());
+        return response.json();
+      })
       .catch(error => {
         console.error(error);
         return Observable.of(error);
