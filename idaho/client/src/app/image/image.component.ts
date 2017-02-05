@@ -31,9 +31,12 @@ export class ImageComponent implements OnInit {
   }
 
   src: string = "";
+  busy : boolean = false;
+
+  maxImageSize = environment.maxImageSize;
   resizeOptions: ResizeOptions = {
-    resizeMaxHeight: 1200,
-    resizeMaxWidth: 800,
+    resizeMaxHeight: this.maxImageSize,
+    resizeMaxWidth: this.maxImageSize,
   };
 
   imageSelected(imageResult: ImageResult) {
@@ -57,7 +60,9 @@ export class ImageComponent implements OnInit {
     return entry
   }
 
-  publishImageEntry(title: string, form: any, imgPreview: any): void {
+  publishImageEntry(title: string, form: any): void {
+    this.busy = true;
+
     var entry = this.createImageEntry(title, this.src);
     var headers = new Headers({ 'Content-Type': 'application/json' });
     var options = new RequestOptions({ headers: headers });
@@ -65,6 +70,7 @@ export class ImageComponent implements OnInit {
     this.authHttp
       .post(environment.entriesUrl, entry, options)
       .catch(error => {
+        this.busy = false;
         console.error(error);
         this.toastr.error(
           'Your image entry could not be published: ' + error._body,
@@ -72,13 +78,14 @@ export class ImageComponent implements OnInit {
         return Observable.of(error);
       })
       .subscribe(response => {
+        this.busy = false;
         if (response.ok) {
           this.toastr.success(
             '"' + title + '" has been published.',
             'Publish successful');
 
           form.reset();
-          imgPreview.src = '';
+          this.src = '';
           this.toastr.info('', 'Form has been reset');
         }
       });

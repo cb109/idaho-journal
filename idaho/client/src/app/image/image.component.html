@@ -5,13 +5,20 @@
            [(ngModel)]="title" required>
   </div>
   <div class="form-group">
-    <input type="file" class="form-control" name="image"
+    <input #imgUpload type="file" class="form-control" name="image"
            image-upload (imageSelected)="imageSelected($event)"
-           [resizeOptions]="resizeOptions">
+           [resizeOptions]="resizeOptions" required>
   </div>
+  <small class="form-text">
+    Please note: The image will be resized to max. {{ maxImageSize }} px in width and height.
+  </small>
+  <br>
   <div class="float-right" style="margin-bottom: 20px">
     <button type="submit" class="btn btn-primary"
-            (click)="publishImageEntry(title, form, imgPreview)">Publish</button>
+            (click)="publishImageEntry(title, form)"
+            [disabled]="!form.valid || !src || busy">
+      Publish
+    </button>
     <button type="button" class="btn btn-danger"
             (click)="abort()">Abort</button>
   </div>
