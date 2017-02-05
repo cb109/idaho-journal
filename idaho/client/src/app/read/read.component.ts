@@ -53,7 +53,17 @@ export class ReadComponent implements OnInit {
         }
       });
   }
+
+  toggleEntryUI(entry: Entry): void {
+    entry['_showUI'] = entry['_showUI'] ? false : true
+  }
+
   deleteEntry(entry: Entry): void {
+    var deletionConfirmed = confirm('Do you really want to delete ' +
+                                    entry.title + '?');
+    if (!deletionConfirmed) {
+      return;
+    }
     var deleteEntryUrl = environment.entriesUrl + entry.id + '/';
     var headers = new Headers({});
     var options = new RequestOptions({ headers: headers });
@@ -67,14 +77,13 @@ export class ReadComponent implements OnInit {
         return Observable.of(error);
       })
       .subscribe(response => {
-        // Update frontend as well.
-        var idx = this.decryptedEntries.indexOf(entry);
-        this.decryptedEntries.splice(idx, 1);
-
         if (response.ok) {
           this.toastr.success(
             '"' + entry.title + '" has been deleted.',
             'Removal successful');
+          // Update frontend as well.
+          var idx = this.decryptedEntries.indexOf(entry);
+          this.decryptedEntries.splice(idx, 1);
         }
       });
   }
