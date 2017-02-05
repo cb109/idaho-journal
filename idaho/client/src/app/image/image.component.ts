@@ -31,9 +31,11 @@ export class ImageComponent implements OnInit {
   }
 
   src: string = "";
+
+  maxImageSize = environment.maxImageSize;
   resizeOptions: ResizeOptions = {
-    resizeMaxHeight: 1200,
-    resizeMaxWidth: 800,
+    resizeMaxHeight: this.maxImageSize,
+    resizeMaxWidth: this.maxImageSize,
   };
 
   imageSelected(imageResult: ImageResult) {

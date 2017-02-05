@@ -9,6 +9,10 @@
            image-upload (imageSelected)="imageSelected($event)"
            [resizeOptions]="resizeOptions">
   </div>
+  <small class="form-text">
+    Please note: The image will be resized to max. {{ maxImageSize }} px in width and height.
+  </small>
+  <br>
   <div class="float-right" style="margin-bottom: 20px">
     <button type="submit" class="btn btn-primary"
             (click)="publishImageEntry(title, form, imgPreview)">Publish</button>
