@@ -9,6 +9,7 @@ class DiaryEntryViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
-        """Only return entries written by the requesting user."""
-        filters = {"author": self.request.user, "deleted": False}
-        return DiaryEntry.objects.filter(**filters)
+        """Return entries from requesting user, sorted by date."""
+        queryset = DiaryEntry.objects.filter(author=self.request.user,
+                                             deleted=False)
+        return queryset

@@ -42,14 +42,13 @@ export class ReadComponent implements OnInit {
         // cause the entriesService to fall back to its default.
         this.fetchNextUrl = response.next;
 
-        var entries = response.results as Entry[];
-        this._encryptedEntries = entries.slice().reverse();
-
-        // Decrypt the collected entries from the backend.
         var password = this.passwordService.retrieve();
         if (!password) {
           throw('Could not retrieve encryption password, aborting.')
         }
+
+        // Decrypt the collected entries from the backend.
+        this._encryptedEntries = response.results as Entry[];
         for (var i = 0; i < this._encryptedEntries.length; ++i) {
           var entry: Entry = this._encryptedEntries[i];
           entry.title = this.encryptionService.fromEncryptedString(password,
