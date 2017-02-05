@@ -14,6 +14,8 @@ import { environment } from '../../environments/environment';
 import { PasswordService } from '../password.service';
 import { EncryptionService } from '../encryption.service';
 
+declare var videojs: any;  // video.js as imported in index.html.
+
 @Component({
   selector: 'app-image',
   templateUrl: './image.component.html',
@@ -27,7 +29,42 @@ export class ImageComponent implements OnInit {
               private location: Location,
               private toastr: ToastrService,
               private element: ElementRef) {}
+
   ngOnInit() {
+    this.initWebcamRecorder();
+  }
+
+  initWebcamRecorder(): void {
+    var player = videojs("webCamRecorder", {
+      controls: true,
+      width: 320,
+      height: 240,
+      controlBar: {
+        volumeMenuButton: false,
+        fullscreenToggle: false
+      },
+      plugins: {
+        record: {
+          image: true,
+          debug: true
+        }
+      }
+    });
+
+    // error handling
+    player.on('deviceError', function() {
+      console.warn('device error:', player.deviceErrorCode);
+    });
+    player.on('error', function(error) {
+      console.log('error:', error);
+    });
+
+    // snapshot is available
+    player.on('finishRecord', function() {
+      // the blob object contains the image data that
+      // can be downloaded by the user, stored on server etc.
+      console.log('snapshot ready: ', player.recordedData);
+    });
   }
 
   src: string = "";

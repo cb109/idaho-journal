@@ -9,6 +9,7 @@
            image-upload (imageSelected)="imageSelected($event)"
            [resizeOptions]="resizeOptions" required>
   </div>
+  <video id="webCamRecorder" class="video-js vjs-default-skin"></video>
   <small class="form-text">
     Please note: The image will be resized to max. {{ maxImageSize }} px in width and height.
   </small>
