@@ -10,4 +10,5 @@ class DiaryEntryViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         """Only return entries written by the requesting user."""
-        return DiaryEntry.objects.filter(author=self.request.user)
+        return DiaryEntry.objects.filter(author=self.request.user,
+                                         deleted=False)

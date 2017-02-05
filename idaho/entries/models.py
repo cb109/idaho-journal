@@ -13,6 +13,9 @@ class DiaryEntry(models.Model):
     author = models.ForeignKey(User)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+    kind = models.TextField()
+
+    deleted = models.BooleanField(default=False)
 
     # These will contain encrypted data.
     title = models.TextField()
@@ -27,3 +30,8 @@ class DiaryEntry(models.Model):
         # page while it contains special characters like german umlauts.
         encoded = string.encode("UTF-8")
         return encoded
+
+    def delete(self):
+        """Override delete() for a soft-deletion."""
+        self.deleted = True
+        self.save()
