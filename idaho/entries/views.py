@@ -9,12 +9,6 @@ class DiaryEntryViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
-        """Only return entries written by the requesting user.
-
-        Admins can see all author's entries even if 'deleted'.
-        """
-        user = self.request.user
-        filters = {"author": user, "deleted": False}
-        if user.is_superuser:
-            filters = {}
+        """Only return entries written by the requesting user."""
+        filters = {"author": self.request.user, "deleted": False}
         return DiaryEntry.objects.filter(**filters)
