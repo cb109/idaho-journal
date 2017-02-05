@@ -19,3 +19,8 @@
   <img type="file" [src]="entry.body" *ngIf="entry.kind == 'image'">
   <div style="height: 60px"></div>
 </div>
+
+<button class="btn btn-default" style="width: 100%; margin-bottom: 20px" 
+        (click)="getDecryptedEntries()" [hidden]="!fetchNextUrl">
+  More
+</button>

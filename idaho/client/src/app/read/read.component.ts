@@ -22,6 +22,7 @@ export class ReadComponent implements OnInit {
 
   private _encryptedEntries: Entry[] = [];
   decryptedEntries: Entry[] = [];
+  fetchNextUrl: string;
 
   constructor(private authHttp: AuthHttp,
               private entriesService: EntriesService,
@@ -30,12 +31,18 @@ export class ReadComponent implements OnInit {
               private toastr: ToastrService) { }
 
   ngOnInit() {
-    this.decryptEntries();
+    this.getDecryptedEntries();
   }
 
-  decryptEntries() {
-    this.entriesService.getEntries()
-      .then(entries => {
+  getDecryptedEntries() {
+    this.entriesService.getEntries(this.fetchNextUrl)
+      .then(response => {
+        // This will trigger loading the next paginated results.
+        // It will become null when fully consumed, which will
+        // cause the entriesService to fall back to its default.
+        this.fetchNextUrl = response.next;
+
+        var entries = response.results as Entry[];
         this._encryptedEntries = entries.slice().reverse();
 
         // Decrypt the collected entries from the backend.
@@ -64,6 +71,8 @@ export class ReadComponent implements OnInit {
     if (!deletionConfirmed) {
       return;
     }
+
+    // FIXME: Move this to the entriesService.
     var deleteEntryUrl = environment.entriesUrl + entry.id + '/';
     var headers = new Headers({});
     var options = new RequestOptions({ headers: headers });
