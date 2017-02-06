@@ -16,7 +16,8 @@
   <div style="white-space: pre-wrap" *ngIf="entry.kind == 'text'">
     {{ entry.body }}
   </div>
-  <img type="file" [src]="entry.body" *ngIf="entry.kind == 'image'">
+  <img type="file" [src]="entry.body" style="max-width: 100%"
+       *ngIf="entry.kind == 'image'">
   <div style="height: 60px"></div>
 </div>
 
