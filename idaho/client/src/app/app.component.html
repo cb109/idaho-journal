@@ -2,13 +2,6 @@
   <nav class="navbar navbar-toggleable-md navbar-inverse bg-primary fixed-top"
        style="opacity: 0.9">
     <span>
-      <button class="navbar-toggler" type="button"
-              data-toggle="collapse" data-target="#navbarNav"
-              aria-controls="navbarNav" aria-expanded="false"
-              aria-label="Toggle navigation"
-              style="margin-right: 10px">
-        <span class="navbar-toggler-icon"></span>
-      </button>
       <a class="navbar-brand" href="/" title="Home">
         <b>idaho</b>
         <span style="margin-left: 5px; opacity: 0.7">
@@ -16,9 +9,10 @@
         </span>
       </a>
     </span>
-    <div #navbar class="collapse navbar-collapse" id="navbarNav"
+    <div #navbar class="navbar-collapse" id="navbarNav"
          style="justify-content: flex-end">
-      <ul class="navbar-nav">
+      <ul class="navbar-nav"
+          style="min-width: 300px; max-width: 400px">
         <!-- Write/read section -->
         <li class="nav-item" *ngIf="authService.isLoggedIn" title="Write Text">
           <a class="nav-link" routerLink="/write/text" routerLinkActive="active">
@@ -62,7 +56,7 @@
       </ul>
     </div>
   </nav>
-  <div style="margin-top: 80px; max-width: 800px" class="container">
+  <div style="margin-top: 120px; max-width: 800px" class="container">
     <router-outlet></router-outlet>
   </div>
 </div>
