@@ -20,9 +20,11 @@ import { PasswordService } from '../password.service';
 })
 export class ReadComponent implements OnInit {
 
+  busy: boolean = false;
+
   private _encryptedEntries: Entry[] = [];
   decryptedEntries: Entry[] = [];
-  fetchNextUrl: string;
+  fetchNextEntriesUrl: string;
 
   constructor(private authHttp: AuthHttp,
               private entriesService: EntriesService,
@@ -30,17 +32,32 @@ export class ReadComponent implements OnInit {
               private encryptionService: EncryptionService,
               private toastr: ToastrService) { }
 
+  /**
+   * Get initial entries.
+   */
   ngOnInit() {
     this.getDecryptedEntries();
   }
 
+  /**
+   * Get entries from API and decrypt them for display.
+   */
   getDecryptedEntries() {
-    this.entriesService.getEntries(this.fetchNextUrl)
+    this.busy = true;
+
+    this.entriesService.getEntries(this.fetchNextEntriesUrl)
+      .catch(error => {
+        this.busy = false;
+        console.error(error);
+        return Observable.of(error);
+      })
       .subscribe(response => {
+        this.busy = false;
+
         // This will trigger loading the next paginated results.
         // It will become null when fully consumed, which will
         // cause the entriesService to fall back to its default.
-        this.fetchNextUrl = response.next;
+        this.fetchNextEntriesUrl = response.next;
 
         var password = this.passwordService.retrieve();
         if (!password) {
@@ -60,10 +77,37 @@ export class ReadComponent implements OnInit {
       });
   }
 
+  /**
+   * Fetch the next entries from the API when scrolled to bottom.
+   */
+  onScroll() {
+    if (!this.fetchNextEntriesUrl || this.busy) {
+      return;
+    }
+    var windowHeight = ("innerHeight" in window ?
+                        window.innerHeight :
+                        document.documentElement.offsetHeight);
+    var body = document.body, html = document.documentElement;
+    var docHeight = Math.max(body.scrollHeight, body.offsetHeight,
+                             html.clientHeight, html.scrollHeight,
+                             html.offsetHeight);
+    var windowBottom = windowHeight + window.pageYOffset;
+    var bottomReached = windowBottom >= docHeight;
+    if (bottomReached) {
+      this.getDecryptedEntries();
+    }
+  }
+
+  /**
+   * Toggle UI for the entry which title was clicked.
+   */
   toggleEntryUI(entry: Entry): void {
     entry['_showUI'] = entry['_showUI'] ? false : true
   }
 
+  /**
+   * Delete the given entry and show a result notification.
+   */
   deleteEntry(entry: Entry): void {
     var deletionConfirmed = confirm('Do you really want to delete ' +
                                     entry.title + '?');

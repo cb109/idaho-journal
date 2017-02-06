@@ -1,6 +1,9 @@
 <h3>Read Entries</h3>
 <br>
-<div *ngFor="let entry of decryptedEntries">
+<div *ngIf="!decryptedEntries.length">
+  There is nothing to see here yet.
+</div>
+<div *ngFor="let entry of decryptedEntries" (window:scroll)="onScroll($event)">
   <div (click)="toggleEntryUI(entry)">
     <h4><b>{{ entry.title }}</b></h4>
     <h5><i>{{ entry.created_at | date: 'medium' }}</i></h5>
@@ -17,11 +20,11 @@
     {{ entry.body }}
   </div>
   <img type="file" [src]="entry.body" style="max-width: 100%"
-       *ngIf="entry.kind == 'image'">
+      *ngIf="entry.kind == 'image'">
   <div style="height: 60px"></div>
 </div>
-
+<!-- Fetch more data by either clicking or just scrolling to bottom -->
 <button class="btn btn-default" style="width: 100%; margin-bottom: 20px" 
-        (click)="getDecryptedEntries()" [hidden]="!fetchNextUrl">
-  More
+        (click)="getDecryptedEntries()" [hidden]="!fetchNextEntriesUrl">
+  Scroll down for more
 </button>
