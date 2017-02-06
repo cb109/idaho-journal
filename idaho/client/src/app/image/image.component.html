@@ -15,12 +15,12 @@
   <br>
   <div class="float-right" style="margin-bottom: 20px">
     <button type="submit" class="btn btn-primary"
-            (click)="publishImageEntry(title, form)"
-            [disabled]="!form.valid || !src || busy">
+            (click)="publishImageEntry(title)"
+            [disabled]="!form.valid || !image || busy">
       Publish
     </button>
     <button type="button" class="btn btn-danger"
             (click)="abort()">Abort</button>
   </div>
-  <img #imgPreview type="file" [src]="src" [hidden]="!src">
+  <img #imgPreview type="file" [src]="image" [hidden]="!image">
 </form>

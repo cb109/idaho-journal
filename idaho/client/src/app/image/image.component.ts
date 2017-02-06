@@ -30,7 +30,9 @@ export class ImageComponent implements OnInit {
   ngOnInit() {
   }
 
-  src: string = "";
+  title: string = "";
+  image: string = "";
+
   busy : boolean = false;
 
   maxImageSize = environment.maxImageSize;
@@ -40,9 +42,13 @@ export class ImageComponent implements OnInit {
   };
 
   imageSelected(imageResult: ImageResult) {
-    this.src = imageResult.resized
-      && imageResult.resized.dataURL
-      || imageResult.dataURL;
+    this.image = (imageResult.resized &&
+                  imageResult.resized.dataURL ||
+                  imageResult.dataURL);
+
+    if (!this.title) {
+      this.title = imageResult.file.name;
+    }
   }
 
   private createImageEntry(title: string, image: string): Entry {
@@ -60,10 +66,10 @@ export class ImageComponent implements OnInit {
     return entry
   }
 
-  publishImageEntry(title: string, form: any): void {
+  publishImageEntry(title: string): void {
     this.busy = true;
 
-    var entry = this.createImageEntry(title, this.src);
+    var entry = this.createImageEntry(title, this.image);
     var headers = new Headers({ 'Content-Type': 'application/json' });
     var options = new RequestOptions({ headers: headers });
 
@@ -84,8 +90,8 @@ export class ImageComponent implements OnInit {
             '"' + title + '" has been published.',
             'Publish successful');
 
-          form.reset();
-          this.src = '';
+          this.title = '';
+          this.image = '';
           this.toastr.info('', 'Form has been reset');
         }
       });
