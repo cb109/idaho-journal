@@ -1,6 +1,10 @@
 <h3>Read Entries</h3>
 <br>
-<div *ngIf="!decryptedEntries.length">
+<span [hidden]="!busy">
+  <i class="fa fa-spinner fa-pulse fa-fw"></i>
+  Loading...
+</span>
+<div [hidden]="decryptedEntries.length">
   There is nothing to see here yet.
 </div>
 <div *ngFor="let entry of decryptedEntries" (window:scroll)="onScroll($event)">
@@ -26,6 +30,9 @@
 <button class="btn btn-default" [hidden]="!fetchNextEntriesUrl"
   style="width: 100%; height: 60px; margin-bottom: 150px"
   (click)="getDecryptedEntries()">
-  <i class="fa fa-spinner fa-pulse fa-fw" [hidden]="!busy"></i>
-  Scroll down for more
+  <span [hidden]="!busy">
+    <i class="fa fa-spinner fa-pulse fa-fw"></i>
+    Loading...
+  </span>
+  <span [hidden]="busy">Scroll down for more</span>
 </button>
