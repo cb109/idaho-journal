@@ -1,0 +1,8 @@
+.nav-item-icon {
+  font-size: 1.5em;
+}
+
+.navbar-nav {
+  flex-direction: row;
+  justify-content: space-around;
+}
