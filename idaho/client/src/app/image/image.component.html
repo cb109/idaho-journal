@@ -22,5 +22,6 @@
     <button type="button" class="btn btn-danger"
             (click)="abort()">Abort</button>
   </div>
-  <img #imgPreview type="file" [src]="image" [hidden]="!image">
+  <img #imgPreview type="file" [src]="image" [hidden]="!image"
+       style="max-width: 100%">
 </form>
