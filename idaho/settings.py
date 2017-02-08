@@ -73,6 +73,14 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
+    'DEFAULT_THROTTLE_CLASSES': (
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle'
+    ),
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '6/min',
+        'user': '60/min',
+    },
     'DEFAULT_PAGINATION_CLASS': 'idaho.shared.OrderedCursorPagination',
     'PAGE_SIZE': 3,
 }
