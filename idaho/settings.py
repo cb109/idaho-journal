@@ -82,7 +82,7 @@ REST_FRAMEWORK = {
         'user': '60/min',
     },
     'DEFAULT_PAGINATION_CLASS': 'idaho.shared.OrderedCursorPagination',
-    'PAGE_SIZE': 3,
+    'PAGE_SIZE': 5,
 }
 
 JWT_AUTH = {
