@@ -11,6 +11,8 @@ declare var Recorder: any;  // this.recorder.min.js as imported in index.html.
 export class AudioComponent implements OnInit {
 
   recorder: any;
+  audioUrl: string = '';
+  busy: boolean = false;
 
   constructor(private location: Location) { }
 
@@ -19,6 +21,8 @@ export class AudioComponent implements OnInit {
   }
 
   setup(): void {
+    this.reset();
+
     this.recorder = new Recorder({
       numberOfChannels: 1,
       encoderPath: '../../assets/recorderjs-opus/encoderWorker.min.js',
@@ -34,30 +38,33 @@ export class AudioComponent implements OnInit {
       var audio = document.createElement('audio');
       audio.controls = true;
       audio.src = url;
+      audio.id = 'audioPreview';
 
-      var preview = document.getElementById('audioPreview');
-      while (preview.firstChild) {
-        preview.removeChild(preview.firstChild);
-      }
-      preview.appendChild(audio);
+      var previewContainer = document.getElementById('previewContainer');
+      previewContainer.appendChild(audio);
     });
 
     this.recorder.initStream();
   }
 
   start(): void {
-    this.clearPreview();
+    this.reset();
+    this.busy = true;
     this.recorder.start();
   }
 
   stop(): void {
+    this.busy = false;
     this.recorder.stop();
   }
 
-  clearPreview(): void {
-    var preview = document.getElementById('audioPreview');
-    while (preview.firstChild) {
-      preview.removeChild(preview.firstChild);
+  reset(): void {
+    this.busy = false;
+    this.audioUrl = '';
+
+    var previewContainer = document.getElementById('previewContainer');
+    while (previewContainer.firstChild) {
+      previewContainer.removeChild(previewContainer.firstChild);
     }
   }
 

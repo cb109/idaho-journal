@@ -7,6 +7,10 @@
   <div class="form-group">
     <button type="button" class="btn btn-success" id="start" (click)="start()">Start</button>
     <button type="button" class="btn btn-danger" id="stop" (click)="stop()">Stop</button>
+    <span style="margin-left: 10px" [hidden]="!busy">
+      <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
+      Recording ...
+    </span>
   </div>
   <div class="float-right" style="margin-bottom: 20px">
     <button type="submit" class="btn btn-primary"
@@ -15,5 +19,5 @@
     <button type="button" class="btn btn-danger"
             (click)="abort()">Abort</button>
   </div>
-  <div id="audioPreview"></div>
+  <div id="previewContainer"></div>
 </form>
