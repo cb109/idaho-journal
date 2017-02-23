@@ -11,7 +11,8 @@
     </button>
     <button type="button" class="btn btn-info" id="pause"
             (click)="togglePause()" [disabled]="!title || !recording">
-      <i class="fa fa-pause"></i>
+      <i *ngIf="!paused" class="fa fa-pause"></i>
+      <i *ngIf="paused" class="fa fa-play"></i>
     </button>
     <button type="button" class="btn btn-danger" id="stop"
             (click)="stop()" [disabled]="!title || !recording">
@@ -19,10 +20,10 @@
     </button>
     <span style="margin-left: 10px" [hidden]="!recording || paused">
       <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
-      Recording ...
+      Recording
     </span>
     <span style="margin-left: 10px" [hidden]="!paused">
-      Paused!
+      Paused
     </span>
   </div>
   <div class="float-right" style="margin-bottom: 20px">
