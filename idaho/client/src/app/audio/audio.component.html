@@ -5,8 +5,10 @@
            [(ngModel)]="title" required>
   </div>
   <div class="form-group">
-    <button type="button" class="btn btn-success" id="start" (click)="start()">Start</button>
-    <button type="button" class="btn btn-danger" id="stop" (click)="stop()">Stop</button>
+    <button type="button" class="btn btn-success" id="start"
+            (click)="start()" [disabled]="!title">Start</button>
+    <button type="button" class="btn btn-danger" id="stop"
+            (click)="stop()" [disabled]="!title">Stop</button>
     <span style="margin-left: 10px" [hidden]="!recording">
       <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
       Recording ...
