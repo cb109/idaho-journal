@@ -24,6 +24,7 @@ export class AudioComponent implements OnInit {
 
   recorder: any;
   recording: boolean = false;
+  paused: boolean = false;
   publishing: boolean = false;
 
   title: string = "";
@@ -44,7 +45,8 @@ export class AudioComponent implements OnInit {
 
     this.recorder = new Recorder({
       numberOfChannels: 1,
-      resampleQuality: 6,  // Between 0 and 10 (speed vs quality), 3 is default.
+      encoderApplication: 2048,  // Voice.
+      resampleQuality: 10,  // Between 0 and 10 (speed vs quality), 3 is default.
       encoderPath: '../../assets/recorderjs-opus/encoderWorker.min.js',
       leaveStreamOpen: true
     });
@@ -91,16 +93,33 @@ export class AudioComponent implements OnInit {
   start(): void {
     this.reset();
     this.recording = true;
+    this.paused = false;
     this.recorder.start();
+  }
+
+  togglePause(): void {
+    if (!this.recording) {
+      return;
+    }
+    if (!this.paused) {
+      this.paused = true;
+      this.recorder.pause();
+    }
+    else {
+      this.paused = false;
+      this.recorder.resume();
+    }
   }
 
   stop(): void {
     this.recording = false;
+    this.paused = false;
     this.recorder.stop();
   }
 
   reset(): void {
     this.recording = false;
+    this.paused = false;
 
     var previewContainer = document.getElementById('previewContainer');
     while (previewContainer.firstChild) {

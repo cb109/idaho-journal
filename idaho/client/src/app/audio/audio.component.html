@@ -6,17 +6,28 @@
   </div>
   <div class="form-group">
     <button type="button" class="btn btn-success" id="start"
-            (click)="start()" [disabled]="!title">Start</button>
+            (click)="start()" [disabled]="!title || recording">
+      Start
+    </button>
+    <button type="button" class="btn btn-info" id="pause"
+            (click)="togglePause()" [disabled]="!title || !recording">
+      <i class="fa fa-pause"></i>
+    </button>
     <button type="button" class="btn btn-danger" id="stop"
-            (click)="stop()" [disabled]="!title">Stop</button>
-    <span style="margin-left: 10px" [hidden]="!recording">
+            (click)="stop()" [disabled]="!title || !recording">
+      Stop
+    </button>
+    <span style="margin-left: 10px" [hidden]="!recording || paused">
       <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
       Recording ...
+    </span>
+    <span style="margin-left: 10px" [hidden]="!paused">
+      Paused!
     </span>
   </div>
   <div class="float-right" style="margin-bottom: 20px">
     <button type="submit" class="btn btn-primary"
-            [disabled]="!form.valid || publishing"
+            [disabled]="!form.valid || publishing || recording"
             (click)="publishAudioEntry()">Publish</button>
     <button type="button" class="btn btn-danger"
             (click)="abort()">Abort</button>
