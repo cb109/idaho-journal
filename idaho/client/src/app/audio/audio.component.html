@@ -1,0 +1,39 @@
+<h3>New Audio Entry</h3>
+<form #form="ngForm">
+  <div class="form-group">
+    <input type="text" class="form-control" name="title" placeholder="Title"
+           [(ngModel)]="title" required>
+  </div>
+  <div class="form-group">
+    <button type="button" class="btn btn-success" id="start"
+            (click)="start()" [disabled]="!title || recording">
+      <i class="fa fa-microphone"></i>
+    </button>
+    <button type="button" class="btn btn-info" id="pause"
+            (click)="togglePause()" [disabled]="!title || !recording">
+      <i *ngIf="!paused" class="fa fa-pause"></i>
+      <i *ngIf="paused" class="fa fa-play"></i>
+    </button>
+    <button type="button" class="btn btn-danger" id="stop"
+            (click)="stop()" [disabled]="!title || !recording">
+      <i class="fa fa-stop"></i>
+    </button>
+    <span style="margin-left: 10px" [hidden]="!recording || paused">
+      <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
+      Recording
+    </span>
+    <span style="margin-left: 10px" [hidden]="!paused">
+      Paused
+    </span>
+  </div>
+  <div class="float-right" style="margin-bottom: 20px">
+    <button type="submit" class="btn btn-primary"
+            [disabled]="!form.valid || publishing || recording"
+            (click)="publishAudioEntry()">Publish</button>
+    <button type="button" class="btn btn-danger"
+            (click)="abort()">Abort</button>
+  </div>
+  <!-- These are workarounds to make recorder.js work with Angular 2 -->
+  <div id="previewContainer"></div>
+  <div id="resultContainer"></div>
+</form>

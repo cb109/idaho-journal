@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# Rebuild the frontend, collect it to Django's static folder and serve
+# it using its development server.
+
+# Start a subshell so we can run the command in a different directory.
+( cd idaho/client && ng build --base-href="static/" )
+
+python manage.py collectstatic --noinput
+start "http://localhost:8000"
+python manage.py runserver
+
+# Note: This takes some seconds everytime it is run. To have a fully
+# automically-rebuilding development environment, launch three shells
+# with the following commands:
+# 1. idaho/idaho/client $ ng build --base-href="static/" --watch
+# 2. idaho/ $ while true; do python manage.py collectstatic --noinput && sleep 1; done
+# 3. idaho/ $ python manage.py runserver

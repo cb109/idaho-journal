@@ -1,0 +1,43 @@
+<h3>Read Entries</h3>
+<br>
+<span [hidden]="!busy">
+  <i class="fa fa-spinner fa-pulse fa-fw"></i>
+  Loading...
+</span>
+<div [hidden]="decryptedEntries.length">
+  There is nothing to see here yet.
+</div>
+<div *ngFor="let entry of decryptedEntries" (window:scroll)="onScroll($event)">
+  <div (click)="toggleEntryUI(entry)">
+    <h4><b>{{ entry.title }}</b></h4>
+    <h5><i>{{ entry.created_at | date: 'medium' }}</i></h5>
+  </div>
+  <!-- Toggable UI to delete etc. -->
+  <div [hidden]="!entry._showUI" style="margin: 20px">
+    <button class="btn btn-danger" (click)="deleteEntry(entry)">
+      <i class="fa fa-trash"></i>
+    </button>
+  </div>
+  <br>
+  <!-- Text Entry -->
+  <div style="white-space: pre-wrap" *ngIf="entry.kind == 'text'">
+    {{ entry.body }}
+  </div>
+  <!-- Audio Entry -->
+  <audio [src]="entry.body" *ngIf="entry.kind == 'audio'"
+         controls style="width: 100%" fileName="entry.title + '.ogg'">
+  </audio>
+  <!-- Image Entry -->
+  <img type="file" [src]="entry.body" style="max-width: 100%"
+      *ngIf="entry.kind == 'image'">
+  <div style="height: 60px"></div>
+</div>
+<button class="btn btn-default" [hidden]="!fetchNextEntriesUrl"
+  style="width: 100%; height: 60px; margin-bottom: 150px"
+  (click)="getDecryptedEntries()">
+  <span [hidden]="!busy">
+    <i class="fa fa-spinner fa-pulse fa-fw"></i>
+    Loading...
+  </span>
+  <span [hidden]="busy">Click or scroll down for more</span>
+</button>

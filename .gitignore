@@ -1,1 +1,10 @@
-.venv
+*.py[cod]
+*.egg*
+*.sublime-*
+db.sqlite3
+
+.venv/
+.cache/
+public/
+*bower_components/
+*node_modules/

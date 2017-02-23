@@ -1,0 +1,62 @@
+<div class="container">
+  <nav class="navbar navbar-toggleable-md navbar-inverse bg-primary fixed-top"
+       style="opacity: 0.9">
+    <span>
+      <a class="navbar-brand" href="/" title="Home">
+        <b>idaho</b>
+        <span style="margin-left: 5px; opacity: 0.7">
+          my own private journal
+        </span>
+      </a>
+    </span>
+    <div #navbar class="navbar-collapse" id="navbarNav"
+         style="justify-content: flex-end">
+      <ul class="navbar-nav"
+          style="min-width: 300px; max-width: 400px">
+        <!-- Write/read section -->
+        <li class="nav-item" *ngIf="authService.isLoggedIn" title="Write Text">
+          <a class="nav-link" routerLink="/write/text" routerLinkActive="active">
+            <i class="fa fa-pencil nav-item-icon"></i>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="authService.isLoggedIn" title="Record Audio">
+          <a class="nav-link" routerLink="/write/audio" routerLinkActive="active">
+            <i class="fa fa-microphone nav-item-icon"></i>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="authService.isLoggedIn" title="Capture Image">
+          <a class="nav-link" routerLink="/write/image" routerLinkActive="active">
+            <i class="fa fa-camera nav-item-icon"></i>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="authService.isLoggedIn" title="Read your Journal">
+          <a class="nav-link" routerLink="/read" routerLinkActive="active">
+            <i class="fa fa-book nav-item-icon"></i>
+          </a>
+        </li>
+        <!-- Login/logout section -->
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="!authService.isLoggedIn">
+            Please authenticate
+          </a>
+          <a class="nav-link" *ngIf="authService.isLoggedIn">
+            Welcome, {{ authService.getLoggedInUser() }}
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="authService.isLoggedIn" title="Logout">
+          <a class="nav-link" (click)="authService.logout()">
+            <i class="fa fa-sign-out nav-item-icon"></i>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="!authService.isLoggedIn" title="Login">
+          <a class="nav-link" routerLink="/login" routerLinkActive="active">
+            <i class="fa fa-sign-in nav-item-icon"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div style="margin-top: 120px; max-width: 800px" class="container">
+    <router-outlet></router-outlet>
+  </div>
+</div>
