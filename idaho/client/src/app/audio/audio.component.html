@@ -7,7 +7,7 @@
   <div class="form-group">
     <button type="button" class="btn btn-success" id="start"
             (click)="start()" [disabled]="!title || recording">
-      Start
+      <i class="fa fa-microphone"></i>
     </button>
     <button type="button" class="btn btn-info" id="pause"
             (click)="togglePause()" [disabled]="!title || !recording">
@@ -16,7 +16,7 @@
     </button>
     <button type="button" class="btn btn-danger" id="stop"
             (click)="stop()" [disabled]="!title || !recording">
-      Stop
+      <i class="fa fa-stop"></i>
     </button>
     <span style="margin-left: 10px" [hidden]="!recording || paused">
       <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
