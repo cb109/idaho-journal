@@ -4,7 +4,6 @@ from django.contrib import admin
 from rest_framework_jwt.views import obtain_jwt_token, verify_jwt_token
 from rest_framework_swagger.views import get_swagger_view
 
-from idaho import views
 from idaho.entries import urls as entries_urls
 
 
@@ -18,8 +17,4 @@ urlpatterns = [
                                namespace="rest_framework")),
     url(r'^api/token-auth/', obtain_jwt_token),
     url(r'^api/token-verify/', verify_jwt_token),
-
-    # Support routing with Angular 2 for all other urls, see:
-    # https://www.metaltoad.com/blog/url-routing-decoupled-app-angular-2-and-django  # noqa
-    url(r'^(?P<path>.*)/$', views.bootstrap_spa),
 ]
