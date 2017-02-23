@@ -165,6 +165,7 @@ export class AudioComponent implements OnInit {
             'Publish successful');
 
           this.title = '';
+          this.reset();
           this.toastr.info('', 'Form has been reset');
         }
       });
