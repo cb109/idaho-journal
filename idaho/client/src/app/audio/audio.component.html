@@ -7,17 +7,19 @@
   <div class="form-group">
     <button type="button" class="btn btn-success" id="start" (click)="start()">Start</button>
     <button type="button" class="btn btn-danger" id="stop" (click)="stop()">Stop</button>
-    <span style="margin-left: 10px" [hidden]="!busy">
+    <span style="margin-left: 10px" [hidden]="!recording">
       <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
       Recording ...
     </span>
   </div>
   <div class="float-right" style="margin-bottom: 20px">
     <button type="submit" class="btn btn-primary"
-            [disabled]="!form.valid && audioUrl"
-            (click)="publishAudioEntry(title, audioUrl)">Publish</button>
+            [disabled]="!form.valid"
+            (click)="publishAudioEntry()">Publish</button>
     <button type="button" class="btn btn-danger"
             (click)="abort()">Abort</button>
   </div>
+  <!-- These are workarounds to make recorder.js work with Angular 2 -->
   <div id="previewContainer"></div>
+  <div id="resultContainer"></div>
 </form>
