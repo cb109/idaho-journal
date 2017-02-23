@@ -21,25 +21,12 @@
         "styles.css",
 
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
-        "../node_modules/tether/dist/css/tether.min.css",
-
-        "../node_modules/video.js/dist/video-js.min.css",
-        "../node_modules/videojs-record/src/css/videojs.record.css"
+        "../node_modules/tether/dist/css/tether.min.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
         "../node_modules/tether/dist/js/tether.min.js",
-        "../node_modules/bootstrap/dist/js/bootstrap.min.js",
-
-        "../node_modules/libvorbis.js/js/libvorbis.min.js",
-        "../node_modules/video.js/dist/video.min.js",
-
-        "../node_modules/wavesurfer.js/dist/wavesurfer.min.js",
-        "../node_modules/wavesurfer.js/dist/plugin/wavesurfer.microphone.min.js",
-        "../node_modules/videojs-wavesurfer/dist/videojs.wavesurfer.min.js",
-
-        "../node_modules/videojs-record/src/js/videojs.record.js",
-        "../node_modules/videojs-record/src/js/plugins/videojs.record.libvorbis.js"
+        "../node_modules/bootstrap/dist/js/bootstrap.min.js"
       ],
       "environments": {
         "source": "environments/environment.ts",
