@@ -8,7 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-    <!-- Stanford Javascript Crypto Library. Included 
+    <!-- No NPM package for these. Must be imported BEFORE sjcl,
+         otherwise there is a conflict ('u is not a function'). -->
+    <script src="assets/recorderjs-opus/recorder.min.js"></script>
+    <script src="assets/recorderjs-opus/encoderWorker.min.js"></script>
+
+    <!-- Stanford Javascript Crypto Library. Included
          here because webpack has troubles including it.-->
     <script src="assets/sjcl.js"></script>
 

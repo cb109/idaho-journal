@@ -10,7 +10,7 @@ import { AuthHttp } from 'angular2-jwt';
 import { environment } from '../../environments/environment';
 import { Entry } from '../entry';
 import { EntriesService } from '../entries.service';
-import { Encrypted, EncryptionService } from '../encryption.service';
+import { EncryptionService } from '../encryption.service';
 import { PasswordService } from '../password.service';
 
 @Component({
