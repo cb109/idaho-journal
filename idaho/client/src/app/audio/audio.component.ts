@@ -75,12 +75,9 @@ export class AudioComponent implements OnInit {
       }
 
       // Dynamically create a preview element.
-      var fileName = new Date().toISOString() + ".ogg";
-      var url = URL.createObjectURL(blob);
-
       var audio = document.createElement('audio');
       audio.controls = true;
-      audio.src = url;
+      audio.src = URL.createObjectURL(blob);
       audio.id = 'audioPreview';
 
       var previewContainer = document.getElementById('previewContainer');
