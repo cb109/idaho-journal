@@ -44,6 +44,7 @@ export class AudioComponent implements OnInit {
 
     this.recorder = new Recorder({
       numberOfChannels: 1,
+      resampleQuality: 6,  // Between 0 and 10 (speed vs quality), 3 is default.
       encoderPath: '../../assets/recorderjs-opus/encoderWorker.min.js',
       leaveStreamOpen: true
     });
