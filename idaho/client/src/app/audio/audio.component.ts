@@ -124,7 +124,6 @@ export class AudioComponent implements OnInit {
     var entry = {'title': encryptedTitle,
                  'body': encryptedAudio,
                  'kind': 'audio'};
-    console.log(entry);
     return entry
   }
 
