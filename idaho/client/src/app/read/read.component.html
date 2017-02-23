@@ -18,11 +18,16 @@
       <i class="fa fa-trash"></i>
     </button>
   </div>
-  <!-- Entry body depending on kind -->
   <br>
+  <!-- Text Entry -->
   <div style="white-space: pre-wrap" *ngIf="entry.kind == 'text'">
     {{ entry.body }}
   </div>
+  <!-- Audio Entry -->
+  <audio [src]="entry.body" *ngIf="entry.kind == 'audio'"
+         controls style="width: 100%" fileName="entry.title + '.ogg'">
+  </audio>
+  <!-- Image Entry -->
   <img type="file" [src]="entry.body" style="max-width: 100%"
       *ngIf="entry.kind == 'image'">
   <div style="height: 60px"></div>
