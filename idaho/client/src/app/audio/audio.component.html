@@ -1,2 +1,19 @@
-<button id="start" (click)="recorder.start()">start</button>
-<button id="stop" (click)="recorder.stop()">stop</button>
+<h3>New Audio Entry</h3>
+<form #form="ngForm">
+  <div class="form-group">
+    <input type="text" class="form-control" name="title" placeholder="Title"
+           [(ngModel)]="title" required>
+  </div>
+  <div class="form-group">
+    <button type="button" class="btn btn-success" id="start" (click)="start()">Start</button>
+    <button type="button" class="btn btn-danger" id="stop" (click)="stop()">Stop</button>
+  </div>
+  <div class="float-right" style="margin-bottom: 20px">
+    <button type="submit" class="btn btn-primary"
+            [disabled]="!form.valid && audioUrl"
+            (click)="publishAudioEntry(title, audioUrl)">Publish</button>
+    <button type="button" class="btn btn-danger"
+            (click)="abort()">Abort</button>
+  </div>
+  <div id="audioPreview"></div>
+</form>

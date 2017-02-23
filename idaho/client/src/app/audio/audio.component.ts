@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Location } from '@angular/common';
 
 declare var Recorder: any;  // this.recorder.min.js as imported in index.html.
 
@@ -11,7 +12,7 @@ export class AudioComponent implements OnInit {
 
   recorder: any;
 
-  constructor() { }
+  constructor(private location: Location) { }
 
   ngOnInit() {
     this.setup();
@@ -19,7 +20,9 @@ export class AudioComponent implements OnInit {
 
   setup(): void {
     this.recorder = new Recorder({
-      encoderPath: '../../assets/recorderjs-opus/encoderWorker.min.js'
+      numberOfChannels: 1,
+      encoderPath: '../../assets/recorderjs-opus/encoderWorker.min.js',
+      leaveStreamOpen: true
     });
 
     this.recorder.addEventListener("dataAvailable", function(e) {
@@ -27,22 +30,38 @@ export class AudioComponent implements OnInit {
       var fileName = new Date().toISOString() + ".ogg";
       var url = URL.createObjectURL( dataBlob );
 
+      // Dynamically create a preview element.
       var audio = document.createElement('audio');
       audio.controls = true;
       audio.src = url;
 
-      var link = document.createElement('a');
-      link.href = url;
-      link.download = fileName;
-      link.innerHTML = link.download;
-
-      var li = document.createElement('li');
-      li.appendChild(link);
-      li.appendChild(audio);
-
-      document.body.appendChild(li);
+      var preview = document.getElementById('audioPreview');
+      while (preview.firstChild) {
+        preview.removeChild(preview.firstChild);
+      }
+      preview.appendChild(audio);
     });
 
     this.recorder.initStream();
+  }
+
+  start(): void {
+    this.clearPreview();
+    this.recorder.start();
+  }
+
+  stop(): void {
+    this.recorder.stop();
+  }
+
+  clearPreview(): void {
+    var preview = document.getElementById('audioPreview');
+    while (preview.firstChild) {
+      preview.removeChild(preview.firstChild);
+    }
+  }
+
+  abort() {
+    this.location.back();
   }
 }
