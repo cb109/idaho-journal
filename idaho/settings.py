@@ -84,8 +84,8 @@ REST_FRAMEWORK = {
     #     'anon': '6/min',
     #     'user': '60/min',
     # },
-    # 'DEFAULT_PAGINATION_CLASS': 'idaho.shared.OrderedCursorPagination',
-    # 'PAGE_SIZE': 5,
+    'DEFAULT_PAGINATION_CLASS': 'idaho.shared.OrderedCursorPagination',
+    'PAGE_SIZE': 5,
 }
 
 JWT_AUTH = {
