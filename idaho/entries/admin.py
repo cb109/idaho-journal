@@ -1,5 +1,7 @@
 import json
+import sys
 
+import humanfriendly
 from django.contrib import admin
 
 from idaho.entries.models import DiaryEntry
@@ -26,6 +28,7 @@ class DiaryEntryAdmin(admin.ModelAdmin):
         "created_at",
         "kind",
         "author",
+        "size",
         "deleted",
         "modified_at",
         "content",
@@ -33,6 +36,13 @@ class DiaryEntryAdmin(admin.ModelAdmin):
     list_editable = (
         "deleted",
     )
+
+    def size(self, obj):
+        """Return human friendly size of title + body."""
+        concatenated = obj.title + obj.body
+        size = sys.getsizeof(concatenated)
+        humanized = humanfriendly.format_size(size)
+        return humanized
 
     def content(self, obj):
         """Limit maximum length of displayed content."""
