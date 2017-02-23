@@ -9,7 +9,10 @@ class DiaryEntryAdmin(admin.ModelAdmin):
     readonly_fields = (
         "id",
         "created_at",
-        "modified_at"
+        "modified_at",
+        "title",
+        "body",
+        "kind",
     )
     fields = (
         "title",
