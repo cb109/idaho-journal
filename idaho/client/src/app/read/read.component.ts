@@ -22,6 +22,8 @@ export class ReadComponent implements OnInit {
 
   busy: boolean = false;
 
+  entriesCount: number = 0;
+
   private _encryptedEntries: Entry[] = [];
   decryptedEntries: Entry[] = [];
   fetchNextEntriesUrl: string;
@@ -36,6 +38,11 @@ export class ReadComponent implements OnInit {
    * Get initial entries.
    */
   ngOnInit() {
+    this.entriesService.getNumEntries()
+      .subscribe(response => {
+        this.entriesCount = response;
+      });
+
     this.getDecryptedEntries();
   }
 
