@@ -9,5 +9,6 @@ router.register(r"entries", views.DiaryEntryViewSet, base_name="entries")
 
 urlpatterns = [
     url(r"^entries/count/", views.count),
+    url(r"^entries/titles/", views.titles),
     url(r"^", include(router.urls)),
 ]

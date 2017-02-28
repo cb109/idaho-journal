@@ -1,5 +1,5 @@
 from rest_framework import viewsets, permissions
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 
 from idaho.entries.models import DiaryEntry
@@ -18,6 +18,18 @@ class DiaryEntryViewSet(viewsets.ModelViewSet):
 
 
 @api_view(["GET"])
+@permission_classes((permissions.IsAuthenticated, ))
+def titles(request):
+    """Return titles of non-deleted entries from requesting user."""
+    queryset = DiaryEntry.objects.filter(author=request.user,
+                                         deleted=False)
+    titles = [entry.title for entry in queryset]
+    print(titles)
+    return Response(titles)
+
+
+@api_view(["GET"])
+@permission_classes((permissions.IsAuthenticated, ))
 def count(request):
     """Return number of non-deleted entries from requesting user."""
     amount = DiaryEntry.objects.filter(author=request.user,
