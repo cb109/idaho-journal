@@ -8,6 +8,7 @@ import { ToastrService } from 'toastr-ng2';
 import { AuthHttp } from 'angular2-jwt';
 
 import { environment } from '../../environments/environment';
+import { Title } from '../title';
 import { Entry } from '../entry';
 import { EntriesService } from '../entries.service';
 import { EncryptionService } from '../encryption.service';
@@ -22,8 +23,11 @@ export class ReadComponent implements OnInit {
 
   busy: boolean = false;
 
-  entriesCount: number = 0;
+  titleFilter: string = '';
+  private _encryptedTitles: Title[] = [];
+  decryptedTitles: Title[] = [];
 
+  entriesCount: number = 0;
   private _encryptedEntries: Entry[] = [];
   decryptedEntries: Entry[] = [];
   fetchNextEntriesUrl: string;
@@ -43,11 +47,47 @@ export class ReadComponent implements OnInit {
         this.entriesCount = response;
       });
 
+    this.getDecryptedTitles();
     this.getDecryptedEntries();
   }
 
   /**
+   * Apply the current title filter value to the entries backend query.
+   *
+   * This gets all titles at once (no pagination).
+   */
+  getDecryptedTitles(): void {
+    this.busy = true;
+
+    this.entriesService.getTitles()
+      .catch(error => {
+        this.busy = false;
+        console.error(error);
+        return Observable.of(error);
+      })
+      .subscribe(response => {
+        this.busy = false;
+
+        var password = this.passwordService.retrieve();
+        if (!password) {
+          throw('Could not retrieve encryption password, aborting.')
+        }
+
+        // Decrypt the collected titles from the backend.
+        this._encryptedTitles = response as Title[];
+        for (var i = 0; i < this._encryptedTitles.length; ++i) {
+          var title: Title = this._encryptedTitles[i];
+          title.title = this.encryptionService.fromEncryptedString(password,
+                                                                   title.title);
+          this.decryptedTitles.push(title);
+        }
+      });
+  }
+
+  /**
    * Get entries from API and decrypt them for display.
+   *
+   * This query is paginated to allow reading chunk by chunk.
    */
   getDecryptedEntries() {
     this.busy = true;
