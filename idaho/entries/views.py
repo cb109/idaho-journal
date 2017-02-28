@@ -20,11 +20,14 @@ class DiaryEntryViewSet(viewsets.ModelViewSet):
 @api_view(["GET"])
 @permission_classes((permissions.IsAuthenticated, ))
 def titles(request):
-    """Return titles of non-deleted entries from requesting user."""
+    """Return titles of non-deleted entries from requesting user.
+
+    Note: Since this is a simple APIView, it is not affected by any
+      global pagination settings and returns the full queryset.
+    """
     queryset = DiaryEntry.objects.filter(author=request.user,
                                          deleted=False)
     titles = [entry.title for entry in queryset]
-    print(titles)
     return Response(titles)
 
 
