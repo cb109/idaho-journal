@@ -1,0 +1,8 @@
+.filter {
+  background-image: url("assets/searchicon.png");
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  padding: 8px 16px 8px 42px;
+  border: 1px solid #DDD;
+}

@@ -1,5 +1,7 @@
 <h3>Read {{ entriesCount }} Entries</h3>
-<br>
+<input type="text" id="titleFilter" class="filter" placeholder="Search by Title"
+       [(ngModel)]="titleFilter" (keyup.enter)="applyTitleFilter()">
+<p>
 <span [hidden]="!busy">
   <i class="fa fa-spinner fa-pulse fa-fw"></i>
   Loading...
