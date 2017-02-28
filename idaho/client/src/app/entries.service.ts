@@ -14,6 +14,9 @@ export class EntriesService {
 
   constructor(private authHttp: AuthHttp) { }
 
+  /**
+   * Return the number of entries for the logged-in user.
+   */
   getNumEntries() {
     return this.authHttp
       .get(environment.entriesCountUrl)
@@ -24,6 +27,27 @@ export class EntriesService {
       });
   }
 
+  /**
+   * Return list of all title objects for logged-in user.
+   *
+   * Each object contains a encrypted title string and an id.
+   */
+  getTitles() {
+    return this.authHttp
+      .get(environment.entriesTitlesUrl)
+      .map(response => response.json())
+      .catch(error => {
+        console.error(error);
+        return Observable.of(error);
+      });
+  }
+
+  /**
+   * Return list of (paginated) entry objects for logged-in user.
+   *
+   * The chunk/page to get is determined by the optional entriesUrl.
+   * If it is not passed, the first chunk/page is retrieved.
+   */
   getEntries(entriesUrl?: string) {
     if (!entriesUrl) {
       var entriesUrl = environment.entriesUrl;
