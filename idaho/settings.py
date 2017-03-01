@@ -172,7 +172,11 @@ STATICFILES_DIRS = [
 ]
 
 EMAIL_REMINDER = {
+    "GMAIL_SMTP_SERVER": "smtp.gmail.com",
+    "GMAIL_SMTP_PORT": 587,
+    "GMAIL_USER": "user@gmail.com",
+    "GMAIL_PWD": "secret-password",
     "SUBJECT": "idaho - How did your day go?",
-    "BODY": "https://localhost:4200/login",  # Change me for production!
-    "FROM_EMAIL": "reminder@idaho.journal",
+    "BODY": ("Record some thoughts and memories with <a href='"
+             "https://localhost:4200/' target='blank_'>idaho</a>"),
 }
