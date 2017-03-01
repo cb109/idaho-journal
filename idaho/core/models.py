@@ -9,6 +9,9 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     email_reminder_enabled = models.BooleanField(default=False)
 
+    def __str__(self):
+        return "UserProfile for {}".format(self.user)
+
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

@@ -47,5 +47,4 @@ class DiaryEntryAdmin(admin.ModelAdmin):
             return "?"  # Can't decode (e.g. when added via admin page).
         return title_obj["ct"][:20]
 
-admin.site.site_header = "idaho Administration"
 admin.site.register(DiaryEntry, DiaryEntryAdmin)
