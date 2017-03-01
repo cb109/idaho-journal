@@ -170,3 +170,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'idaho', 'templates'),
     os.path.join(BASE_DIR, 'idaho', 'client', 'dist'),
 ]
+
+EMAIL_REMINDER = {
+    "SUBJECT": "idaho - How did your day go?",
+    "BODY": "https://localhost:4200/login",  # Change me for production!
+    "FROM_EMAIL": "reminder@idaho.journal",
+}
