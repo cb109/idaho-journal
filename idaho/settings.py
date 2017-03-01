@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'sslserver',
 
     # Project.
+    'idaho.core',
     'idaho.entries',
 ]
 
@@ -169,3 +170,13 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'idaho', 'templates'),
     os.path.join(BASE_DIR, 'idaho', 'client', 'dist'),
 ]
+
+EMAIL_REMINDER = {
+    "GMAIL_SMTP_SERVER": "smtp.gmail.com",
+    "GMAIL_SMTP_PORT": 587,
+    "GMAIL_USER": "user@gmail.com",
+    "GMAIL_PWD": "secret-password",
+    "SUBJECT": "idaho - How did your day go?",
+    "BODY": ("Record some thoughts and memories with <a href='"
+             "https://localhost:4200/' target='blank_'>idaho</a>"),
+}
