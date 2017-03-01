@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'sslserver',
 
     # Project.
+    'idaho.core',
     'idaho.entries',
 ]
 
