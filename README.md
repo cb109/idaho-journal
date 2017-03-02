@@ -9,6 +9,12 @@ No editing functionality included, you wouldn't rewrite a diary, would you?
 * **Mobile Friendly**: Take images with your phone and directly publish them.
 * **Email Reminder**: Tells you once a day to record your thoughts.
 
+## Demo
+
+You can login as user: **demo** with password: **demo** in the [online demo](https://idaho-journal.ddns.net/).
+
+![](http://i.giphy.com/3oKIPphVHMCdUCavKg.gif)
+
 ## Screenshots
 
 <img src="docs/logout.png"
@@ -25,9 +31,3 @@ No editing functionality included, you wouldn't rewrite a diary, would you?
 
 <img src="docs/read.png"
      style="width: 200px; margin: 20px" />
-
-## Demo
-
-You can login as user: **demo** with password: **demo** in the [online demo](https://idaho-journal.ddns.net/).
-
-![](http://i.giphy.com/3oKIPphVHMCdUCavKg.gif)
