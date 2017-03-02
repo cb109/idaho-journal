@@ -13,24 +13,23 @@ No editing functionality included, you wouldn't rewrite a diary, would you?
 
 <div style="display: flex; flex-direction: row; align-items: center;">
 <img src="docs/logout.png"
-     style="width: 300px; margin: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)" />
+     style="width: 300px; margin: 20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)" />
 
 <img src="docs/text.png"
-     style="width: 300px; margin: 10px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)" />
+     style="width: 300px; margin: 20px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)" />
 
 <img src="docs/audio.png"
-     style="width: 300px; margin: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)" />
+     style="width: 300px; margin: 20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)" />
 
 <img src="docs/image.png"
-     style="width: 300px; margin: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)" />
+     style="width: 300px; margin: 20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)" />
 
 <img src="docs/read.png"
-     style="width: 300px; margin: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)" />
+     style="width: 300px; margin: 20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)" />
 </div>
 
 ## Demo
 
 A live demo is available at: https://idaho-journal.ddns.net/
 
-<img src="http://i.giphy.com/xUPGclIEq1zdPWcFQA.gif"
-     style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)" />
+<iframe src="//giphy.com/embed/xUPGclIEq1zdPWcFQA" width="480" height="668" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/xUPGclIEq1zdPWcFQA">via GIPHY</a></p>
