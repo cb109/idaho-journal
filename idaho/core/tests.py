@@ -1,5 +1,8 @@
 import pytest
+import requests
+from rest_framework import status
 
+from idaho import __version__
 from idaho.core.models import UserProfile
 
 
@@ -12,3 +15,13 @@ def test_userprofile_is_deleted_with_its_user(user):
     user.delete()
     with pytest.raises(UserProfile.DoesNotExist):
         UserProfile.objects.get(id=userprofile_id)
+
+
+class TestCoreAPI:
+    """Test the REST API for some core endpoints."""
+
+    def test_api_version(self, live_server, user):
+        url = live_server.url + "/version/"
+        response = requests.get(url, auth=("user", "password"))
+        assert response.status_code == status.HTTP_200_OK
+        assert response.json() == {"version": __version__}
