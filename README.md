@@ -28,6 +28,6 @@ No editing functionality included, you wouldn't rewrite a diary, would you?
 
 ## Demo
 
-A live demo is available at: https://idaho-journal.ddns.net/
+A live demo is available at: https://idaho-journal.ddns.net/ You can login as user: **demo** with password: **demo**
 
-<iframe src="//giphy.com/embed/xUPGclIEq1zdPWcFQA" width="480" height="668" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/xUPGclIEq1zdPWcFQA">via GIPHY</a></p>
+<iframe src="//giphy.com/embed/xUPGclIEq1zdPWcFQA?html5=true" width="480" height="667" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/xUPGclIEq1zdPWcFQA">See demonstration on GIPHY</a></p>
