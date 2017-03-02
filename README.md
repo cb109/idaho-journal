@@ -11,22 +11,20 @@ No editing functionality included, you wouldn't rewrite a diary, would you?
 
 ## Screenshots
 
-<div style="display: flex; flex-direction: row; align-items: center;">
 <img src="docs/logout.png"
-     style="width: 300px; margin: 20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)" />
+     style="width: 200px; margin: 20px" />
 
 <img src="docs/text.png"
-     style="width: 300px; margin: 20px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)" />
+     style="width: 200px; margin: 20px" />
 
 <img src="docs/audio.png"
-     style="width: 300px; margin: 20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)" />
+     style="width: 200px; margin: 20px" />
 
 <img src="docs/image.png"
-     style="width: 300px; margin: 20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)" />
+     style="width: 200px; margin: 20px" />
 
 <img src="docs/read.png"
-     style="width: 300px; margin: 20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)" />
-</div>
+     style="width: 200px; margin: 20px" />
 
 ## Demo
 
