@@ -5,6 +5,7 @@ django-sslserver==0.19
 Django==1.10.2
 djangorestframework-jwt==1.9.0
 djangorestframework==3.5.1
+freezegun==0.3.8
 httpie==0.9.6
 humanfriendly==2.4
 py==1.4.31
