@@ -90,19 +90,19 @@ def audio_entry_id(entries):
 class TestAPIRetrieve:
 
     def test_api_retrieve_nonexisting(self, entries_url, user_auth):
-        url = entries_url + "99999999"
+        url = entries_url + "99999999/"
         response = requests.get(url, auth=user_auth)
         assert response.status_code == status.HTTP_404_NOT_FOUND
 
     def test_api_retrieve_unauthorized(self, entries_url, audio_entry_id):
-        url = entries_url + audio_entry_id
+        url = entries_url + audio_entry_id + "/"
         response = requests.get(url, auth=("nope", "nope"))
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     def test_api_retrieve_from_another_user_fails(self, entries_url,
                                                   user_auth, audio_entry_id):
         """Even if authenticated, we can't retrieve other people's entries."""
-        url = entries_url + audio_entry_id  # Entry belongs to another_user.
+        url = entries_url + audio_entry_id + "/"  # Belongs to another_user.
         response = requests.get(url, auth=user_auth)
         assert response.status_code == status.HTTP_404_NOT_FOUND
 
@@ -114,8 +114,9 @@ def another_user_auth(another_user):
 
 class TestAPIUpdate:
 
-    def test_api_update_unauthorized(self, entries_url):
-        response = requests.patch(entries_url, data={}, auth=("nope", "nope"))
+    def test_api_update_unauthorized(self, entries_url, audio_entry_id):
+        url = entries_url + audio_entry_id + "/"
+        response = requests.patch(url, data={}, auth=("nope", "nope"))
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     def test_api_update_malformed(self, entries_url,
@@ -142,3 +143,30 @@ class TestAPIUpdate:
 
         entry = response.json()
         assert entry["kind"] == "some-other-kind"
+
+
+class TestAPIDelete:
+
+    def test_api_delete_unauthorized(self, entries_url):
+        response = requests.delete(entries_url, data={}, auth=("nope", "nope"))
+        assert response.status_code == status.HTTP_401_UNAUTHORIZED
+
+    def test_api_delete_nonexisting(self, entries_url, another_user_auth):
+        url = entries_url + "99999999/"
+        response = requests.delete(url, auth=another_user_auth)
+        assert response.status_code == status.HTTP_404_NOT_FOUND
+
+    def test_api_delete_success(self, entries_url,
+                                audio_entry_id, another_user_auth):
+        url = entries_url + audio_entry_id + "/"
+        response = requests.delete(url, auth=another_user_auth)
+        assert response.status_code == status.HTTP_204_NO_CONTENT
+
+        # Trying again should fail.
+        response = requests.delete(url, auth=another_user_auth)
+        assert response.status_code == status.HTTP_404_NOT_FOUND
+
+    def test_api_delete_multiple_not_allowed(
+            self, entries_url, another_user_auth):
+        response = requests.delete(entries_url, auth=another_user_auth)
+        assert response.status_code == status.HTTP_405_METHOD_NOT_ALLOWED
