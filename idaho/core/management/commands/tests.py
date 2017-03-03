@@ -10,7 +10,8 @@ def user_with_reminder(user):
 
 
 def test_command_mocked_send_email_reminders(monkeypatch, user_with_reminder):
-    """Check that the management command will call the gmail API func."""
+    """Check that the command will call the gmail func with correct args."""
+
     def assert_send_email_via_gmail(*args):
         assert args == (
             'user@gmail.com', 'secret-password', u'user@domain.com',
