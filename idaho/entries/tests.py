@@ -43,7 +43,7 @@ def test_entries_count(live_server, entries):
     assert response.json() == 3  # Only half the entries are from this user.
 
 
-class TestAPICreate:
+class TestEntriesAPICreate:
 
     def test_api_create_unauthorized(self, entries_url):
         response = requests.get(entries_url, auth=("nope", "nope"))
@@ -62,7 +62,7 @@ class TestAPICreate:
         assert response.status_code == status.HTTP_201_CREATED
 
 
-class TestAPIList:
+class TestEntriesAPIList:
 
     def test_api_list_unauthorized(self, entries_url):
         response = requests.get(entries_url, auth=("nope", "nope"))
@@ -87,7 +87,7 @@ def audio_entry_id(entries):
             return str(entry.id)
 
 
-class TestAPIRetrieve:
+class TestEntriesAPIRetrieve:
 
     def test_api_retrieve_nonexisting(self, entries_url, user_auth):
         url = entries_url + "99999999/"
@@ -112,7 +112,7 @@ def another_user_auth(another_user):
     return ("another_user", "another_password")
 
 
-class TestAPIUpdate:
+class TestEntriesAPIUpdate:
 
     def test_api_update_unauthorized(self, entries_url, audio_entry_id):
         url = entries_url + audio_entry_id + "/"
@@ -145,7 +145,7 @@ class TestAPIUpdate:
         assert entry["kind"] == "some-other-kind"
 
 
-class TestAPIDelete:
+class TestEntriesAPIDelete:
 
     def test_api_delete_unauthorized(self, entries_url):
         response = requests.delete(entries_url, data={}, auth=("nope", "nope"))
