@@ -42,3 +42,22 @@ def test_entries_count(live_server, entries):
     assert response.status_code == status.HTTP_200_OK
     # Only half of the entries are from this user.
     assert response.json() == 3
+
+
+class TestAPICreate:
+
+    def test_api_create_unauthorized(self, entries_url):
+        response = requests.post(entries_url, data={})
+        assert response.status_code == status.HTTP_401_UNAUTHORIZED
+
+    def test_api_create_malformed(self, entries_url, user_auth):
+        entry = {"title": "title", "kind": "text"}  # "body" missing.
+
+        response = requests.post(entries_url, data=entry, auth=user_auth)
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+    def test_api_create_success(self, entries_url, user_auth):
+        entry = {"title": "title", "kind": "text", "body": "body"}
+
+        response = requests.post(entries_url, data=entry, auth=user_auth)
+        assert response.status_code == status.HTTP_201_CREATED
