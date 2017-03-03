@@ -47,7 +47,7 @@ def test_entries_count(live_server, entries):
 class TestAPICreate:
 
     def test_api_create_unauthorized(self, entries_url):
-        response = requests.post(entries_url, data={})
+        response = requests.get(entries_url, auth=("nope", "nope"))
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     def test_api_create_malformed(self, entries_url, user_auth):
@@ -61,3 +61,48 @@ class TestAPICreate:
 
         response = requests.post(entries_url, data=entry, auth=user_auth)
         assert response.status_code == status.HTTP_201_CREATED
+
+
+class TestAPIList:
+
+    def test_api_list_unauthorized(self, entries_url):
+        response = requests.get(entries_url, auth=("nope", "nope"))
+        assert response.status_code == status.HTTP_401_UNAUTHORIZED
+
+    def test_api_list_only_for_current_user(
+            self, entries_url, entries, user, user_auth):
+        response = requests.get(entries_url, auth=user_auth)
+        assert response.status_code == status.HTTP_200_OK
+
+        # Note: We get a paginated response, hence get the 'results'.
+        data = response.json()["results"]
+        assert len(data) == 3
+        assert [entry["author"] == user.id for entry in data]
+
+
+@pytest.fixture
+def audio_entry_id(entries):
+    """Return the id (as string) of a specific audio entry."""
+    for entry in entries:
+        if entry.body == "My other Audio Body":
+            return str(entry.id)
+
+
+class TestAPIRetrieve:
+
+    def test_api_retrieve_nonexisting(self, entries_url, user_auth):
+        url = entries_url + "99999999"
+        response = requests.get(url, auth=user_auth)
+        assert response.status_code == status.HTTP_404_NOT_FOUND
+
+    def test_api_retrieve_unauthorized(self, entries_url, audio_entry_id):
+        url = entries_url + audio_entry_id
+        response = requests.get(url, auth=("nope", "nope"))
+        assert response.status_code == status.HTTP_401_UNAUTHORIZED
+
+    def test_api_retrieve_from_another_user_fails(self, entries_url,
+                                                  user_auth, audio_entry_id):
+        """Even if authenticated, we can't retrieve other people's entries."""
+        url = entries_url + audio_entry_id  # Entry belongs to another_user.
+        response = requests.get(url, auth=user_auth)
+        assert response.status_code == status.HTTP_404_NOT_FOUND

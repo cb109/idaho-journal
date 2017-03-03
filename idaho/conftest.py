@@ -37,18 +37,18 @@ def entry(user):
 def entries(user, another_user):
     """Create a few different DiaryEntry with frozen timestamps."""
     entries = [
-        DiaryEntry(kind="text", author=user, title="My Text Entry",
+        DiaryEntry(kind="text", author=user, title="My Text Title",
                    body="My Text Body"),
-        DiaryEntry(kind="image", author=user, title="My Image Entry",
+        DiaryEntry(kind="image", author=user, title="My Image Title",
                    body="My Image Body"),
-        DiaryEntry(kind="audio", author=user, title="My Audio Entry",
+        DiaryEntry(kind="audio", author=user, title="My Audio Title",
                    body="My Audio Body"),
         DiaryEntry(kind="text", author=another_user,
-                   title="My other Text Entry", body="My other Text Body"),
+                   title="My other Text Title", body="My other Text Body"),
         DiaryEntry(kind="image", author=another_user,
-                   title="My other Image Entry", body="My other Image Body"),
+                   title="My other Image Title", body="My other Image Body"),
         DiaryEntry(kind="audio", author=another_user,
-                   title="My other Audio Entry", body="My other Audio Body"),
+                   title="My other Audio Title", body="My other Audio Body"),
     ]
     for entry in entries:
         entry.save()
