@@ -40,8 +40,7 @@ def test_entries_count(live_server, entries):
 
     response = requests.get(url, auth=basic_auth)
     assert response.status_code == status.HTTP_200_OK
-    # Only half of the entries are from this user.
-    assert response.json() == 3
+    assert response.json() == 3  # Only half the entries are from this user.
 
 
 class TestAPICreate:
@@ -106,3 +105,40 @@ class TestAPIRetrieve:
         url = entries_url + audio_entry_id  # Entry belongs to another_user.
         response = requests.get(url, auth=user_auth)
         assert response.status_code == status.HTTP_404_NOT_FOUND
+
+
+@pytest.fixture
+def another_user_auth(another_user):
+    return ("another_user", "another_password")
+
+
+class TestAPIUpdate:
+
+    def test_api_update_unauthorized(self, entries_url):
+        response = requests.patch(entries_url, data={}, auth=("nope", "nope"))
+        assert response.status_code == status.HTTP_401_UNAUTHORIZED
+
+    def test_api_update_malformed(self, entries_url,
+                                  audio_entry_id, another_user_auth):
+        """Non-valid updates are simply ignored."""
+        url = entries_url + audio_entry_id + "/"
+        malformed = {"nope": "there is no such attribute"}
+
+        response = requests.patch(url, data=malformed, auth=another_user_auth)
+        assert response.status_code == status.HTTP_200_OK
+
+        # Although the API says 'done it!', the update did have no effect.
+        response = requests.get(url, auth=another_user_auth)
+        entry = response.json()
+        assert "nope" not in entry
+
+    def test_api_update_success(self, entries_url,
+                                audio_entry_id, another_user_auth):
+        url = entries_url + audio_entry_id + "/"
+        malformed = {"kind": "some-other-kind"}
+
+        response = requests.patch(url, data=malformed, auth=another_user_auth)
+        assert response.status_code == status.HTTP_200_OK
+
+        entry = response.json()
+        assert entry["kind"] == "some-other-kind"
