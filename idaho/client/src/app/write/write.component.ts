@@ -34,10 +34,10 @@ export class WriteComponent implements OnInit {
     if (!password) {
       throw('Could not retrieve encryption password, aborting.')
     }
-    var encryptedTitle = this.encryptionService.toEncryptedString(password,
-                                                                  title);
-    var encryptedMessage = this.encryptionService.toEncryptedString(password,
-                                                                    message);
+    var encryptedTitle = this.encryptionService.toEncryptedString(
+      password, title.trim());
+    var encryptedMessage = this.encryptionService.toEncryptedString(
+      password, message.trim());
     var entry = {'title': encryptedTitle,
                  'body': encryptedMessage,
                  'kind': 'text'};

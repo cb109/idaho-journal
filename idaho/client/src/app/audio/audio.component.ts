@@ -137,10 +137,10 @@ export class AudioComponent implements OnInit {
     if (!password) {
       throw('Could not retrieve encryption password, aborting.')
     }
-    var encryptedTitle = this.encryptionService.toEncryptedString(password,
-                                                                  title);
-    var encryptedAudio = this.encryptionService.toEncryptedString(password,
-                                                                  audio);
+    var encryptedTitle = this.encryptionService.toEncryptedString(
+      password, title.trim());
+    var encryptedAudio = this.encryptionService.toEncryptedString(
+      password, audio);
     var entry = {'title': encryptedTitle,
                  'body': encryptedAudio,
                  'kind': 'audio'};
