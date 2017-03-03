@@ -11,7 +11,8 @@ from idaho.entries.models import DiaryEntry
 def user(db):
     """Create a new User in the database and return an instance."""
     user = User.objects.create_user(username="user",
-                                    password="password")
+                                    password="password",
+                                    email="user@domain.com")
     return user
 
 
