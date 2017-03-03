@@ -79,6 +79,10 @@ export class ReadComponent implements OnInit {
                                                                    entry.title);
           entry.body = this.encryptionService.fromEncryptedString(password,
                                                                   entry.body);
+          // Strip whitespace at start and end of any text.
+          entry.title = entry.title.trim();
+          entry.body = entry.body.trim();
+
           this.decryptedEntries.push(entry);
         }
       });
