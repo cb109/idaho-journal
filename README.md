@@ -11,7 +11,7 @@ No editing functionality included, you wouldn't rewrite a diary, would you?
 
 ## Demo
 
-You can login as user: **demo** with password: **demo** in the [online demo](https://idaho-journal.ddns.net/).
+You can login as user: **demo** with password: **demo** in the [online demo](https://idaho.cbuelter.de/).
 
 ![](http://i.giphy.com/3oKIPphVHMCdUCavKg.gif)
 
