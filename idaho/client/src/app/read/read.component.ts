@@ -22,6 +22,8 @@ export class ReadComponent implements OnInit {
 
   busy: boolean = false;
 
+  entriesCount: number = 0;
+
   private _encryptedEntries: Entry[] = [];
   decryptedEntries: Entry[] = [];
   fetchNextEntriesUrl: string;
@@ -36,6 +38,11 @@ export class ReadComponent implements OnInit {
    * Get initial entries.
    */
   ngOnInit() {
+    this.entriesService.getNumEntries()
+      .subscribe(response => {
+        this.entriesCount = response;
+      });
+
     this.getDecryptedEntries();
   }
 
@@ -72,6 +79,10 @@ export class ReadComponent implements OnInit {
                                                                    entry.title);
           entry.body = this.encryptionService.fromEncryptedString(password,
                                                                   entry.body);
+          // Strip whitespace at start and end of any text.
+          entry.title = entry.title.trim();
+          entry.body = entry.body.trim();
+
           this.decryptedEntries.push(entry);
         }
       });

@@ -14,6 +14,16 @@ export class EntriesService {
 
   constructor(private authHttp: AuthHttp) { }
 
+  getNumEntries() {
+    return this.authHttp
+      .get(environment.entriesCountUrl)
+      .map(response => response.json())
+      .catch(error => {
+        console.error(error);
+        return Observable.of(error);
+      });
+  }
+
   getEntries(entriesUrl?: string) {
     if (!entriesUrl) {
       var entriesUrl = environment.entriesUrl;

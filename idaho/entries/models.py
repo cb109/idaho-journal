@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 import logging
 
+from django.utils import timezone
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -11,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 class DiaryEntry(models.Model):
     author = models.ForeignKey(User)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(default=timezone.now)
     modified_at = models.DateTimeField(auto_now=True)
     kind = models.TextField()
 

@@ -9,6 +9,7 @@ export var environment = {
   apiUrl: 'http://localhost:8000/api',
   tokenVerifyUrl: 'http://localhost:8000/api/token-verify/',
   tokenAuthUrl: 'http://localhost:8000/api/token-auth/',
+  entriesCountUrl: 'http://localhost:8000/api/entries/count/',
   entriesUrl: 'http://localhost:8000/api/entries/',
 
   maxImageSize: 800,  // Pixels to limit images to in width/height.

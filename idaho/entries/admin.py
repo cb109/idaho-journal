@@ -10,11 +10,6 @@ from idaho.entries.models import DiaryEntry
 class DiaryEntryAdmin(admin.ModelAdmin):
     readonly_fields = (
         "id",
-        "created_at",
-        "modified_at",
-        "title",
-        "body",
-        "kind",
     )
     fields = (
         "title",
@@ -26,12 +21,12 @@ class DiaryEntryAdmin(admin.ModelAdmin):
     list_display = (
         "id",
         "created_at",
-        "kind",
         "author",
+        "kind",
         "size",
         "deleted",
-        "modified_at",
         "content",
+        "modified_at",
     )
     list_editable = (
         "deleted",
@@ -46,8 +41,10 @@ class DiaryEntryAdmin(admin.ModelAdmin):
 
     def content(self, obj):
         """Limit maximum length of displayed content."""
-        title_obj = json.loads(json.loads(obj.title))
+        try:
+            title_obj = json.loads(json.loads(obj.title))
+        except ValueError:
+            return "?"  # Can't decode (e.g. when added via admin page).
         return title_obj["ct"][:20]
 
-admin.site.site_header = "idaho Administration"
 admin.site.register(DiaryEntry, DiaryEntryAdmin)

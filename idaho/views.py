@@ -1,6 +1,11 @@
-from django.shortcuts import render
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+from idaho import __version__
 
 
-def bootstrap_spa(request, path=''):
-    """Renders the Angular2 SPA."""
-    return render(request, 'client.html')
+@api_view(["GET"])
+def version(request):
+    """Return the current backend version as JSON."""
+    data = {"version": __version__}
+    return Response(data)
