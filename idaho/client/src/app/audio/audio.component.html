@@ -26,6 +26,15 @@
       Paused
     </span>
   </div>
+  <div class="form-group">
+    <input #audioUpload type="file" accept="audio/*"
+           class="form-control" name="audio"
+           (change)="onAudioFileChanged($event)">
+  </div>
+  <small class="form-text">
+    You may optionally upload an existing recording (e.g. <b>.mp3</b>,
+    <b>.aac</b>, <b>.ogg</b>, <b>.wav</b>) here.
+  </small>
   <div class="float-right" style="margin-bottom: 20px">
     <button type="submit" class="btn btn-primary"
             [disabled]="!form.valid || publishing || recording"
@@ -34,6 +43,6 @@
             (click)="abort()">Abort</button>
   </div>
   <!-- These are workarounds to make recorder.js work with Angular 2 -->
-  <div id="previewContainer"></div>
+  <div id="previewContainer" style="margin-top: 3em"></div>
   <div id="resultContainer"></div>
 </form>
