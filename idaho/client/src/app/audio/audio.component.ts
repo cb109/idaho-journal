@@ -41,6 +41,7 @@ export class AudioComponent implements OnInit {
   }
 
   setup(): void {
+    let vm = this;
     this.reset();
 
     this.recorder = new Recorder({
@@ -55,8 +56,8 @@ export class AudioComponent implements OnInit {
     //  event handler below, which calls for ugly workarounds by storing
     //  and reading data from the DOM.
 
-    this.recorder.addEventListener("dataAvailable", function(e) {
-      var blob = new Blob([e.detail], { type: 'audio/ogg' });
+    this.recorder.addEventListener("dataAvailable", function(event) {
+      var blob = new Blob([event.detail], { type: 'audio/ogg' });
 
       // Convert blob file to base64 string for publishing.
       // Result is stored to the DOM in a hidden element.
@@ -64,30 +65,50 @@ export class AudioComponent implements OnInit {
       reader.readAsDataURL(blob);
       reader.onloadend = function() {
         var base64Data = reader.result;
-
-        var input = document.createElement('input');
-        input.type = "text";
-        input.src = base64Data;
-        input.hidden = true;
-        input.id = "resultStorage";
-
-        var resultContainer = document.getElementById('resultContainer');
-        previewContainer.appendChild(input);
-        // var resultStorage = document.getElementById('resultStorage');
-        // console.log(resultStorage.getAttribute('src'));
+        vm.storeBase64ResultInDOM(base64Data);
+        vm.addPreviewWidgetForAudioBlob(blob);
       }
-
-      // Dynamically create a preview element.
-      var audio = document.createElement('audio');
-      audio.controls = true;
-      audio.src = URL.createObjectURL(blob);
-      audio.id = 'audioPreview';
-
-      var previewContainer = document.getElementById('previewContainer');
-      previewContainer.appendChild(audio);
     });
 
     this.recorder.initStream();
+  }
+
+  storeBase64ResultInDOM(base64Data: any): void {
+    this.reset();
+
+    var input = document.createElement('input');
+    input.type = "text";
+    input.src = base64Data;
+    input.hidden = true;
+    input.id = "resultStorage";
+
+    var resultContainer = document.getElementById('resultContainer');
+    resultContainer.appendChild(input);
+  }
+
+  _createPreviewWidgetForAudio(): any {
+    var audio = document.createElement('audio');
+    audio.controls = true;
+    audio.id = 'audioPreview';
+    audio.style.width = '100%';
+    return audio;
+  }
+
+  _installAudioPreviewWidget(audio: any): void {
+    var previewContainer = document.getElementById('previewContainer');
+    previewContainer.appendChild(audio);
+  }
+
+  addPreviewWidgetForAudioBlob(blob: Blob): void {
+    var audio = this._createPreviewWidgetForAudio();
+    audio.src = URL.createObjectURL(blob);
+    this._installAudioPreviewWidget(audio);
+  }
+
+  addPreviewWidgetForAudioFileURL(audioFile: any): void {
+    var audio = this._createPreviewWidgetForAudio();
+    audio.src = audioFile;
+    this._installAudioPreviewWidget(audio);
   }
 
   start(): void {
@@ -130,6 +151,26 @@ export class AudioComponent implements OnInit {
     while (resultContainer.firstChild) {
       resultContainer.removeChild(resultContainer.firstChild);
     }
+  }
+
+  onAudioFileChanged(fileInput: any): void {
+    if (!fileInput.target.files) {
+      return;
+    }
+
+    this.reset();
+
+    var vm = this;
+    var audioFile = fileInput.target.files[0];
+    if (this.title.trim() === '') {
+      this.title = audioFile.name;
+    }
+    var reader = new FileReader();
+    reader.onload = function (event: any) {
+      vm.storeBase64ResultInDOM(event.target.result);
+      vm.addPreviewWidgetForAudioFileURL(event.target.result);
+    }
+    reader.readAsDataURL(audioFile);
   }
 
   private createAudioEntry(title: string, audio: string): Entry {
