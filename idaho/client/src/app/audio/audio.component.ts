@@ -157,9 +157,14 @@ export class AudioComponent implements OnInit {
     if (!fileInput.target.files) {
       return;
     }
-    var vm = this;
+
     this.reset();
+
+    var vm = this;
     var audioFile = fileInput.target.files[0];
+    if (this.title.trim() === '') {
+      this.title = audioFile.name;
+    }
     var reader = new FileReader();
     reader.onload = function (event: any) {
       vm.storeBase64ResultInDOM(event.target.result);
