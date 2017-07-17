@@ -57,9 +57,9 @@ export class ImageComponent implements OnInit {
       throw('Could not retrieve encryption password, aborting.')
     }
     var encryptedTitle = this.encryptionService.toEncryptedString(
-      password, title.trim());
+        password, title.trim());
     var encryptedImage = this.encryptionService.toEncryptedString(
-      password, image.trim());
+        password, image.trim());
     var entry = {'title': encryptedTitle,
                  'body': encryptedImage,
                  'kind': 'image'};
