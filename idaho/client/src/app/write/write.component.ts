@@ -29,6 +29,9 @@ export class WriteComponent implements OnInit {
   ngOnInit() {
   }
 
+  message: string = '';
+  title: string = '';
+
   private createTextEntry(title: string, message: string): Entry {
     var password = this.passwordService.retrieve();
     if (!password) {

@@ -4,7 +4,14 @@ Description=Idaho Backend
 [Service]
 User=root
 WorkingDirectory=/opt/projects/idaho
-ExecStart=/root/.virtualenvs/idaho/bin/python /opt/projects/idaho/manage.py runserver 0.0.0.0:8000
+ExecStart=/root/.virtualenvs/idaho/bin/gunicorn idaho.wsgi:application \
+        --workers 4 \
+        --bind 0.0.0.0:8000 \
+        --certfile {{ idaho_certfile }} \
+        --keyfile {{ idaho_keyfile }} \
+        --log-level debug \
+        --access-logfile /var/log/idaho/access.log \
+        --error-logfile /var/log/idaho/error.log
 
 [Install]
 WantedBy=multi-user.target
